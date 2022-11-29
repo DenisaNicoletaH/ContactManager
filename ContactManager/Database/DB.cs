@@ -23,7 +23,7 @@ namespace ContactManager.Database
         }
 
 
-     //Constructor???
+ 
 
 
         //List of Contacts goes to the center of the dockpanel
