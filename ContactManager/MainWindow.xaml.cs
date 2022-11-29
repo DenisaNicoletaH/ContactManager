@@ -22,6 +22,7 @@ namespace ContactManager
     {
         public MainWindow()
         {
+            //this shows the window
             InitializeComponent();
         }
     }
