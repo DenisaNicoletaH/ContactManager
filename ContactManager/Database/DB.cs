@@ -10,7 +10,7 @@ namespace ContactManager.Database
     internal class DB
     {
 
-
+        //test push
 
         List<Contact> GetContacts()
         {
