@@ -9,8 +9,10 @@ namespace ContactManager.Database
 {
     internal class DB
     {
+        //use sql command?
+        //get Constructor
+        // s=sql SQLCOMMAND--?
 
-        //test push
 
         List<Contact> GetContacts()
         {
@@ -27,9 +29,11 @@ namespace ContactManager.Database
 
 
         //List of Contacts goes to the center of the dockpanel
+
+
         //GetContacts-Show a few details (but show all contacts)
         //GetContact-Show more details for an ID
-        //GetAddress-Shows an address for an address ID
+        //GetAddress-Shows address for an address ID
         //GetAddressesForContact-Get all adresses for a contact ID(a bit of details)
     }
 }
