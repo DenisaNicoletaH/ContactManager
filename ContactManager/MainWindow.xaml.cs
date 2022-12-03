@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,23 +23,41 @@ namespace ContactManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        SqlConnection con = new SqlConnection("Server=localhost;Database=finalProjectDBF;Trusted_Connection=True");
+        SqlCommand command = new SqlCommand();
+        SqlDataReader dataReader;
         public MainWindow()
         {
             //this shows the window
             InitializeComponent();
+
             DB dB = new DB();
             var contacts = dB.GetContacts();
             foreach (var contact in contacts)
             {
-                btn1.Content = ($"{contact.FirstName} {contact.LastName}");
+                listViewList.Items.Add($"{contact.FirstName} { contact.LastName}");
             }
-
         }
 
-        private void btn1_Click(object sender, RoutedEventArgs e)
-        {
-            DB dB = new DB();
-            dB.GetContact(1);
-        }
+
     }
 }
+/* con.Open();
+           command.CommandText = "SELECT * FROM Contact";
+           command.Connection = con;
+           dataReader = command.ExecuteReader();
+           listViewList.Items.Clear();*/
+/*while (dataReader.Read())
+{  
+    listViewList.Items.Add(dataReader.GetInt32(0).ToString());
+}
+dataReader.Close();*/
+
+
+/* DB dB = new DB();
+           var contacts = dB.GetContacts();
+           foreach (var contact in contacts)
+           {
+               //btn1.Content = ($"{contact.FirstName} {contact.LastName}");
+
+           }*/

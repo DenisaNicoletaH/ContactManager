@@ -31,7 +31,7 @@ namespace ContactManager.Database
                     contact.LastName = sdr["LastName"].ToString();     
                     contacts.Add(contact);
                 }
-
+                sdr.Close();
             }
                 return contacts;
         }
