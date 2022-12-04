@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ContactManager.Database
     {
 
         //test push
-        string connectionString = "Server=localhost;Database=finalProjectDBF;Trusted_Connection=True";
+        string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
           
         public List<Contact> GetContacts()
         {
@@ -38,15 +39,34 @@ namespace ContactManager.Database
 
         public Contact GetContact(int contactId)
         {
+            Contact contact = new Contact();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                Contact contact = new Contact();
+                con.Open();
                 SqlCommand command = new SqlCommand("SELECT * FROM Contact WHERE Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", contactId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    contact.Id = (int)sdr["Id"];
+                    contact.FirstName = sdr["FirstName"].ToString();
+                    contact.MiddleName = sdr["MiddleName"].ToString();
+                    contact.LastName = sdr["LastName"].ToString();
+                }
+                sdr.Close();
             }
-            Window2 win2 = new Window2();
-            win2.Show();
-            return null;
+            return contact;
+        }
+
+        public void DeleteContact(int contactId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("DELETE FROM Contact WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.ExecuteNonQuery();
+            }
         }
 
         //List of Contacts goes to the center of the dockpanel

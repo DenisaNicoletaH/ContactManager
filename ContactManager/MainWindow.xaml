@@ -7,13 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Height="310" VerticalAlignment="Top">
-        <Label Content="Contact Manager" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontSize="24px"/>
-        <ListView x:Name="listViewList">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Label Content="Contact Manager" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24px"/>
+        <ScrollViewer>
+            <ListView x:Name="listView" SelectionChanged="listView_SelectionChanged" Margin="0,57,0,0" Height="376" VerticalAlignment="Top">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
+                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
     </Grid>
 </Window>

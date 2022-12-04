@@ -1,4 +1,5 @@
 ﻿using ContactManager.Database;
+using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -23,9 +24,6 @@ namespace ContactManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        SqlConnection con = new SqlConnection("Server=localhost;Database=finalProjectDBF;Trusted_Connection=True");
-        SqlCommand command = new SqlCommand();
-        SqlDataReader dataReader;
         public MainWindow()
         {
             //this shows the window
@@ -35,29 +33,14 @@ namespace ContactManager
             var contacts = dB.GetContacts();
             foreach (var contact in contacts)
             {
-                listViewList.Items.Add($"{contact.FirstName} { contact.LastName}");
+                this.listView.Items.Add(new Contact {Id=contact.Id, FirstName = contact.FirstName, LastName=contact.LastName});
             }
         }
 
-
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Window2 detailsWindow = new Window2();
+            detailsWindow.Show();
+        }
     }
 }
-/* con.Open();
-           command.CommandText = "SELECT * FROM Contact";
-           command.Connection = con;
-           dataReader = command.ExecuteReader();
-           listViewList.Items.Clear();*/
-/*while (dataReader.Read())
-{  
-    listViewList.Items.Add(dataReader.GetInt32(0).ToString());
-}
-dataReader.Close();*/
-
-
-/* DB dB = new DB();
-           var contacts = dB.GetContacts();
-           foreach (var contact in contacts)
-           {
-               //btn1.Content = ($"{contact.FirstName} {contact.LastName}");
-
-           }*/
