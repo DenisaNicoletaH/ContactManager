@@ -23,18 +23,29 @@ namespace ContactManager
     public partial class Window2 : Window
     {
         DB dB = new DB();
-        public Window2()
+        int idOfContactToBeDeleted = 0;
+        public Window2(int id)
         {
             InitializeComponent();
-            var contact = dB.GetContact(1);
-            this.listViewDetails.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, MiddleName = contact.MiddleName, LastName = contact.LastName });
+            var contact = dB.GetContact(id);
+            FirstName.Text = contact.FirstName;
+            LastName.Text = contact.LastName;
+            //this.listViewDetails.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, MiddleName = contact.MiddleName, LastName = contact.LastName});
         }
         private void DeleteContact(Object sender, RoutedEventArgs e)
         {
-            dB.DeleteContact(1);
-            Button button = sender as Button;
-            listViewDetails.SelectedIndex = 0;
-            this.listViewDetails.Items.RemoveAt(listViewDetails.SelectedIndex);
+            dB.DeleteContact(idOfContactToBeDeleted);
+           /*Button button = sender as Button;
+            listViewDetails.SelectedIndex = listViewDetails.SelectedItem as Contact;
+            this.listViewDetails.Items.RemoveAt(listViewDetails.SelectedIndex);*/
+
+        }
+
+        private void listViewDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*var contact = listViewDetails.SelectedItem as Contact;
+            var contactId = contact.Id;
+            idOfContactToBeDeleted = contactId;*/
         }
     }
 }
