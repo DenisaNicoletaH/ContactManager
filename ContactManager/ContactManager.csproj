@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Database\DB.cs" />
     <Compile Include="Database\Entities\Contact.cs" />
+    <Compile Include="Database\Entities\Phone.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

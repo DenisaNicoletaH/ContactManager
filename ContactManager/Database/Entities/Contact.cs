@@ -14,6 +14,7 @@ namespace ContactManager.Database.Entities
         public string MiddleName { get; set; }
         public string LastName { get; set; }   
 
+      
         //dont need to write the address cause theres another class for that
     }
 }

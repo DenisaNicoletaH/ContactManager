@@ -37,7 +37,7 @@ namespace ContactManager
             }
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var contact = listView.SelectedItem as Contact;
             var contactId = contact.Id;

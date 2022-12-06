@@ -25,7 +25,7 @@
                     <GridViewColumn Header="Delete" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="DeleteContact" CommandParameter="{Binding}"/>
+                                <Button Content="Delete" MouseDoubleClick="DeleteContact" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

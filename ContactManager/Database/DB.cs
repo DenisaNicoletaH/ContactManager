@@ -17,6 +17,9 @@ namespace ContactManager.Database
     // CSV file with "" to not confuse the commas
     internal class DB
     {
+        //use sql command?
+        //get Constructor
+        // s=sql SQLCOMMAND--?
 
         //test push
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
@@ -31,11 +34,11 @@ namespace ContactManager.Database
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    Contact contact = new Contact();
-                    contact.Id = (int)sdr["Id"];
-                    contact.FirstName = sdr["FirstName"].ToString();
-                    contact.LastName = sdr["LastName"].ToString();     
-                    contacts.Add(contact);
+                        Contact contact = new Contact();
+                        contact.Id = (int)sdr["Id"];
+                        contact.FirstName = sdr["FirstName"].ToString();
+                        contact.LastName = sdr["LastName"].ToString();
+                        contacts.Add(contact);
                 }
                 sdr.Close();
             }
@@ -96,9 +99,11 @@ namespace ContactManager.Database
         }
 
         //List of Contacts goes to the center of the dockpanel
+
+
         //GetContacts-Show a few details (but show all contacts)
         //GetContact-Show more details for an ID
-        //GetAddress-Shows an address for an address ID
+        //GetAddress-Shows address for an address ID
         //GetAddressesForContact-Get all adresses for a contact ID(a bit of details)
     }
 }
