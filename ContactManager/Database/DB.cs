@@ -29,11 +29,14 @@ namespace ContactManager.Database
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    Contact contact = new Contact();
-                    contact.Id = (int)sdr["Id"];
-                    contact.FirstName = sdr["FirstName"].ToString();
-                    contact.LastName = sdr["LastName"].ToString();     
-                    contacts.Add(contact);
+                    if (sdr["Active"].ToString().ToLower() == "true")
+                    {
+                        Contact contact = new Contact();
+                        contact.Id = (int)sdr["Id"];
+                        contact.FirstName = sdr["FirstName"].ToString();
+                        contact.LastName = sdr["LastName"].ToString();
+                        contacts.Add(contact);
+                    }
                 }
                 sdr.Close();
             }
