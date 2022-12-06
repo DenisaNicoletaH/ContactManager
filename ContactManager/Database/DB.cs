@@ -29,7 +29,7 @@ namespace ContactManager.Database
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    if (sdr["Active"].ToString().ToLower() == "true")
+                    if ((bool)sdr["Active"] == true)
                     {
                         Contact contact = new Contact();
                         contact.Id = (int)sdr["Id"];
