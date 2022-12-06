@@ -37,7 +37,7 @@ namespace ContactManager
             }
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listView_MouseDoubleClick(object sender, SelectionChangedEventArgs e)
         {
             Window2 detailsWindow = new Window2();
             detailsWindow.Show();
