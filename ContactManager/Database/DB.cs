@@ -25,18 +25,15 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Contact", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Contact Where Active='true'", con);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    if ((bool)sdr["Active"] == true)
-                    {
                         Contact contact = new Contact();
                         contact.Id = (int)sdr["Id"];
                         contact.FirstName = sdr["FirstName"].ToString();
                         contact.LastName = sdr["LastName"].ToString();
                         contacts.Add(contact);
-                    }
                 }
                 sdr.Close();
             }
