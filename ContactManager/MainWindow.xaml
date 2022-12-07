@@ -9,7 +9,8 @@
     <Grid Height="310" VerticalAlignment="Top">
         <Label Content="Contact Manager" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24px"/>
         <ScrollViewer>
-            <ListView x:Name="listView" SelectionChanged="listView_MouseDoubleClick"  Margin="0,57,0,0" Height="376" VerticalAlignment="Top">
+            <ListView x:Name="listView" VerticalAlignment="Stretch" Grid.Column="1"
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>

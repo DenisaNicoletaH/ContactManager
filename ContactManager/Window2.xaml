@@ -7,7 +7,15 @@
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="listViewDetails">
+        <Label Content="Contact Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="170"/>
+        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="107,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="107,113,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
+        <Label Content="First Name:" HorizontalAlignment="Left" Margin="28,86,0,0" VerticalAlignment="Top" Height="26" Width="70"/>
+        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="28,107,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
+
+
+        <!-- <ListView x:Name="listViewDetails" VerticalAlignment="Stretch" Grid.Column="1"
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,0,0,0" Grid.ColumnSpan="2" SelectionChanged="listViewDetails_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
@@ -23,6 +31,6 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
     </Grid>
 </Window>

@@ -37,10 +37,13 @@ namespace ContactManager
             }
         }
 
-        private void listView_MouseDoubleClick(object sender, SelectionChangedEventArgs e)
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Window2 detailsWindow = new Window2();
+            var contact = listView.SelectedItem as Contact;
+            var contactId = contact.Id;
+            Window2 detailsWindow = new Window2(contactId);
             detailsWindow.Show();
+            detailsWindow.Focus();
         }
     }
 }

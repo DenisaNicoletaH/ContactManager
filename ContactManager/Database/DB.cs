@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace ContactManager.Database
 {
+    // Button to export the whole csv file: View (better than storedProceedure)
+    // Last update date trigger
+    // CSV file with "" to not confuse the commas
     internal class DB
     {
         //use sql command?
@@ -25,7 +30,7 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Contact Where Active='true'", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Contact WHERE Active = 1", con);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
@@ -66,10 +71,31 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("DELETE FROM Contact WHERE Id=@Id", con);
+                SqlCommand command = new SqlCommand("UPDATE Contact SET Active = 0 WHERE Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", contactId);
                 command.ExecuteNonQuery();
             }
+        }
+
+        public Address GetAddressForContact(int contactId)
+        {
+            Address address = new Address();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    address.Id = (int)sdr["Id"];
+                    address.Street = sdr["Street"].ToString();
+                    address.City = sdr["City"].ToString();
+                    address.PostalCode = sdr["PostalCode"].ToString();
+                }
+                sdr.Close();
+            }
+            return address;
         }
 
 
