@@ -72,6 +72,8 @@ namespace ContactManager.Database
             }
         }
 
+
+     
         //List of Contacts goes to the center of the dockpanel
 
 
