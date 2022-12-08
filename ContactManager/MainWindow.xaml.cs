@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,12 +32,23 @@ namespace ContactManager
 
             DB dB = new DB();
             var contacts = dB.GetContacts();
+           // var phoneNumbers = dB.getPhoneForContact();
             foreach (var contact in contacts)
             {
-                this.listView.Items.Add(new Contact {Id=contact.Id, FirstName = contact.FirstName, LastName=contact.LastName});
+                this.listView.Items.Add(new Contact {Id=contact.Id, FirstName = contact.FirstName, LastName=contact.LastName, /*MiddleName = contact.MiddleName */ });
+                
             }
+            
+            /*
+            foreach(var phoneA in phoneNumbers)
+            {
+                this.listView.Items.Add(new Phone { Id = phoneA.Id, FirstName = phoneA.FirstName, LastName=phoneA.LastName, PhoneNumber= phoneA. });
+
+            }
+            */
         }
 
+        //Double Click The Contact
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var contact = listView.SelectedItem as Contact;
@@ -46,11 +58,19 @@ namespace ContactManager
             detailsWindow.Focus();
         }
 
+        //Add Contact Button
         private void AddContact_Click(object sender, RoutedEventArgs e)
         {
             AddContact detailsWindow = new AddContact();
             detailsWindow.Show();
             detailsWindow.Focus();
+        }
+
+        private void AddPhone_Click(object sender, RoutedEvent e) 
+        {
+          
+            
+           
         }
     }
 }

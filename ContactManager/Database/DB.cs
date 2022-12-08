@@ -42,9 +42,12 @@ namespace ContactManager.Database
                 }
                 sdr.Close();
             }
+
+            
                 return contacts;
         }
 
+        //Get Contact
         public Contact GetContact(int contactId)
         {
             Contact contact = new Contact();
@@ -60,12 +63,14 @@ namespace ContactManager.Database
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
+                   
                 }
                 sdr.Close();
             }
             return contact;
         }
 
+        //Delete Contact 
         public void DeleteContact(int contactId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -77,6 +82,7 @@ namespace ContactManager.Database
             }
         }
 
+        //Address
         public Address GetAddressForContact(int contactId)
         {
             Address address = new Address();
@@ -98,7 +104,34 @@ namespace ContactManager.Database
             return address;
         }
 
-        //add Contact
+        //Phone-------Maybe change---It is not good :) i wanna cry
+        public List<Phone> getPhoneForContact(int phoneId)
+        {
+           List <Phone> phonesA = new List<Phone>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", phoneId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    Phone phone = new Phone();
+                    phone.Id = (int)sdr["Id"];
+                    phone.FirstName = sdr["FirstName"].ToString();
+                    phone.LastName = sdr["LastName"].ToString();
+                    phone.PhoneNumber = sdr["Phone Number"].ToString();
+                    phonesA.Add(phone);
+
+
+                }
+                sdr.Close();
+            }
+            return phonesA;
+            
+        }
+
+     
         
 
      
