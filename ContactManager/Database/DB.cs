@@ -98,6 +98,8 @@ namespace ContactManager.Database
             return address;
         }
 
+        //add Contact
+        
 
      
         //List of Contacts goes to the center of the dockpanel
