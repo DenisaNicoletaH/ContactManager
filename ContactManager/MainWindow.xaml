@@ -23,8 +23,6 @@
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" />
-                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" />
 
                     </GridView>
                 </ListView.View>

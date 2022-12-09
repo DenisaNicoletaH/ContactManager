@@ -44,9 +44,6 @@ namespace ContactManager
             {
                 this.listView.Items.Add(new Phone { Id = phoneA.Id, FirstName = phoneA.FirstName, LastName=phoneA.LastName, PhoneNumber= phoneA. });
 
-            }
-            */
-        }
 
         //Double Click The Contact
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
