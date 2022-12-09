@@ -31,19 +31,19 @@ namespace ContactManager
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             //incomplete
-            /*using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("INSERT INTO Contact(FirstName,LastName,Active,CreatedDate,UpdatedDate,MiddleName,Image_Id) VALUES(@firstName,@lastName,@active,@createdDate,@updatedDate,@middleName,@imageId)", con);
-                command.Parameters.AddWithValue("@firstName","");
-                command.Parameters.AddWithValue("@lastName", "");
-                command.Parameters.AddWithValue("@active", "");
-                command.Parameters.AddWithValue("@createdDate", "");
-                command.Parameters.AddWithValue("@updatedDate", "");
-                command.Parameters.AddWithValue("@middleName", "");
-                command.Parameters.AddWithValue("@imageId", "");
+                command.Parameters.AddWithValue("@firstName",tb1.Text);
+                command.Parameters.AddWithValue("@lastName", tb2.Text);
+                command.Parameters.AddWithValue("@active", tb3.Text);
+                command.Parameters.AddWithValue("@createdDate", tb4.Text);
+                command.Parameters.AddWithValue("@updatedDate", tb5.Text);
+                command.Parameters.AddWithValue("@middleName", tb6.Text);
+                command.Parameters.AddWithValue("@imageId", tb7.Text);
                 command.ExecuteNonQuery();
-            }*/
+            }
         }
     }
 }
