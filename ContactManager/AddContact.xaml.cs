@@ -45,5 +45,10 @@ namespace ContactManager
                 command.ExecuteNonQuery();
             }
         }
+
+        private void tb4_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

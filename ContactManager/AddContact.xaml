@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="AddContact" Height="450" Width="800">
+        Title="AddContact" Height="450" Width="500">
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

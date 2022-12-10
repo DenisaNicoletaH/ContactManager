@@ -26,6 +26,8 @@ namespace ContactManager
         int idOfContactToBeDeleted = 0;
         public Window2(int id)
         {
+
+            //thereessss ann issueeeeeeeee hehehe for fixing later ;)
             InitializeComponent();
             var contact = dB.GetContact(id);
             FirstName.Text = contact.FirstName;
@@ -35,9 +37,9 @@ namespace ContactManager
         private void DeleteContact(Object sender, RoutedEventArgs e)
         {
             dB.DeleteContact(idOfContactToBeDeleted);
-           /*Button button = sender as Button;
-            listViewDetails.SelectedIndex = listViewDetails.SelectedItem as Contact;
-            this.listViewDetails.Items.RemoveAt(listViewDetails.SelectedIndex);*/
+            /*Button button = sender as Button;
+             listViewDetails.SelectedIndex = listViewDetails.SelectedItem as Contact;
+             this.listViewDetails.Items.RemoveAt(listViewDetails.SelectedIndex);*/
 
         }
 
@@ -46,6 +48,17 @@ namespace ContactManager
             /*var contact = listViewDetails.SelectedItem as Contact;
             var contactId = contact.Id;
             idOfContactToBeDeleted = contactId;*/
+        }
+
+        private void PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if()
         }
     }
 }

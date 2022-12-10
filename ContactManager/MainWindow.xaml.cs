@@ -32,18 +32,14 @@ namespace ContactManager
 
             DB dB = new DB();
             var contacts = dB.GetContacts();
-           // var phoneNumbers = dB.getPhoneForContact();
+            // var phoneNumbers = dB.getPhoneForContact();
             foreach (var contact in contacts)
             {
-                this.listView.Items.Add(new Contact {Id=contact.Id, FirstName = contact.FirstName, LastName=contact.LastName, /*MiddleName = contact.MiddleName */ });
-                
-            }
-            
-            /*
-            foreach(var phoneA in phoneNumbers)
-            {
-                this.listView.Items.Add(new Phone { Id = phoneA.Id, FirstName = phoneA.FirstName, LastName=phoneA.LastName, PhoneNumber= phoneA. });
+                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, /*MiddleName = contact.MiddleName */ });
 
+            }
+
+        }
 
         //Double Click The Contact
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -62,12 +58,8 @@ namespace ContactManager
             detailsWindow.Show();
             detailsWindow.Focus();
         }
+    
 
-        private void AddPhone_Click(object sender, RoutedEvent e) 
-        {
-          
-            
-           
-        }
+      
     }
 }

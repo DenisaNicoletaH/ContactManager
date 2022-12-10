@@ -58,18 +58,11 @@
     <Compile Include="AddContact.xaml.cs">
       <DependentUpon>AddContact.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddPhoneNumber.xaml.cs">
-      <DependentUpon>AddPhoneNumber.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Database\Entities\Address.cs" />
     <Compile Include="Window2.xaml.cs">
       <DependentUpon>Window2.xaml</DependentUpon>
     </Compile>
     <Page Include="AddContact.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AddPhoneNumber.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
