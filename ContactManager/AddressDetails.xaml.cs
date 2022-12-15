@@ -1,4 +1,5 @@
 ﻿using ContactManager.Database;
+using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,7 @@ namespace ContactManager
         private string state;
         private string postalCode;
         private string typeCode;
+        int addressId = 0;
         public string StreetAddress
         {
             get { return street; }
@@ -77,6 +79,27 @@ namespace ContactManager
             PostalCodeAddress = address.PostalCode;
             tcBox.Text = address.TypeCode;
             TypeCodeAddress = address.TypeCode;
+            addressId = id;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            streetBox.IsReadOnly = false;
+            cityBox.IsReadOnly = false;
+            stateBox.IsReadOnly = false;
+            pcBox.IsReadOnly = false;
+            tcBox.IsReadOnly = false;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            dB.UpdateAddress(addressId, StreetAddress, CityAddress, StateAddress, PostalCodeAddress, TypeCodeAddress);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            dB.DeleteAddress(addressId);
+            this.Close();
         }
     }
 }
