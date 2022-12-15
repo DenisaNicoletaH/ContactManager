@@ -23,15 +23,18 @@
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
-
+                        <!--<GridViewColumn Header="Delete Contact">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="OpenFile" Content="Open File" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>-->
                     </GridView>
+                    
                 </ListView.View>
             </ListView>
         </ScrollViewer>
-        <Button Grid.Row="1" x:Name="AddContact" Click="AddContact_Click" Margin="282,0,282,0" >
-            <Viewbox>
-                <Label>Add Contact</Label>
-            </Viewbox>
-        </Button>
+        
     </Grid>
 </Window>

@@ -14,51 +14,71 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Runtime.ConstrainedExecution;
+using System.ComponentModel;
 
 namespace ContactManager
 {
     /// <summary>
     /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class Window2 : Window, INotifyPropertyChanged
     {
         DB dB = new DB();
         int idOfContactToBeDeleted = 0;
+        private string firstName;
+        private string lastName;
+
+        public string FirstNameContact
+        {
+            get { return firstName; }
+            set { firstName = value; OnPropertyChanged("FirstNameContact"); }
+        }
+
+        public string LastNameContact
+        {
+            get { return lastName; }
+            set { lastName = value; OnPropertyChanged("LastNameContact"); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string properyChange)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(properyChange));
+            }
+        }
+
         public Window2(int id)
         {
 
             InitializeComponent();
-            
+            this.DataContext = this;
             var contact = dB.GetContact(id);
-            var phone = dB.getPhoneForContact(id);
+            idOfContactToBeDeleted = id;
             FirstName.Text = contact.FirstName;
+            FirstNameContact = contact.FirstName;
             LastName.Text = contact.LastName;
-            PhoneB.Text = phone.First().PhoneNumber; //Change this to a scrollview
-            //this.listViewDetails.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, MiddleName = contact.MiddleName, LastName = contact.LastName});
-        }
-        private void DeleteContact(Object sender, RoutedEventArgs e)
-        {
-            dB.DeleteContact(idOfContactToBeDeleted);
-            /*Button button = sender as Button;
-             listViewDetails.SelectedIndex = listViewDetails.SelectedItem as Contact;
-             this.listViewDetails.Items.RemoveAt(listViewDetails.SelectedIndex);*/
-
-        }
-
-        private void listViewDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*var contact = listViewDetails.SelectedItem as Contact;
-            var contactId = contact.Id;
-            idOfContactToBeDeleted = contactId;*/
+            LastNameContact = contact.LastName;
         }
     
-        private void Edit_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            Button editButton = sender as Button;
-          //  if (editButton == OnMouseDoubleClick)
-            
-
-            
+            FirstName.IsReadOnly = false;
+            LastName.IsReadOnly = false;
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            dB.UpdateContact(idOfContactToBeDeleted, FirstNameContact, LastNameContact);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            dB.DeleteContact(idOfContactToBeDeleted);
+            this.Close();
+        }
+
     }
 }
