@@ -38,7 +38,8 @@ namespace ContactManager
                 string fName = tb1.Text;
                 string lName = tb2.Text;
                 string mName = tb3.Text;
-                string active = tb4.Text;
+                string active = trueCheckbox.IsChecked;
+
                 string iId = tb5.Text;
                 int imageId=-1;
                 ArrayList imageIds = new ArrayList();
@@ -109,6 +110,22 @@ namespace ContactManager
 
         private void tb4_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+        }
+
+        private void tb1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+      
+
+        private void trueCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            if(trueCheckbox.IsChecked == true)
+            {
+                
+            }
 
         }
     }

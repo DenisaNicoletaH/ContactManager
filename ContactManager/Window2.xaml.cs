@@ -94,5 +94,10 @@ namespace ContactManager
             detailsWindow.Focus();
             //this.Close();
         }
+
+        private void phonedetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

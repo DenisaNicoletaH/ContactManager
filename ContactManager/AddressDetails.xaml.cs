@@ -24,7 +24,7 @@ namespace ContactManager
         DB dB = new DB();
         private string street;
         private string city;
-        private string state;
+        private string country;
         private string postalCode;
         private string typeCode;
         public string StreetAddress
@@ -38,11 +38,13 @@ namespace ContactManager
             get { return city; }
             set { city = value; OnPropertyChanged("CityAddress"); }
         }
-        public string StateAddress
+        
+        public string CountryAddress
         {
-            get { return state; }
-            set { state = value; OnPropertyChanged("StateAddress"); }
+            get { return country; }
+            set { country = value; OnPropertyChanged("StateAddress"); }
         }
+        
         public string PostalCodeAddress
         {
             get { return postalCode; }
@@ -72,7 +74,7 @@ namespace ContactManager
             cityBox.Text = address.City;
             CityAddress = address.City;
             stateBox.Text = address.State;
-            StateAddress = address.State;
+            CountryAddress = address.State;
             pcBox.Text = address.PostalCode;
             PostalCodeAddress = address.PostalCode;
             tcBox.Text = address.TypeCode;

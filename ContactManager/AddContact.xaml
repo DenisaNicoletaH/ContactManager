@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
         Title="AddContact" Height="450" Width="500">
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -19,29 +19,29 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Row="0">First Name</Label>
-        <Label Grid.Row="1">Last Name</Label>
-        <Label Grid.Row="2">Middle Name</Label>
-        <Label Grid.Row="3">Active</Label>
-        <Label Grid.Row="4">Image Id</Label>
 
-        <TextBox x:Name="tb1"  Grid.Column="1" Grid.Row="0"></TextBox>
-        <TextBox x:Name="tb2" Grid.Column="1" Grid.Row="1"></TextBox>
-        <TextBox x:Name="tb3" Grid.Column="1" Grid.Row="2"></TextBox>
-        <TextBox x:Name="tb4" Grid.Column="1" Grid.Row="3"></TextBox>
-        <TextBox x:Name="tb5" Grid.Column="1" Grid.Row="4"></TextBox>
+        <Label Grid.Row="0" Margin="29,21,19,21">Add First Name:</Label>
+        <Label Grid.Row="1" Margin="17,22,31,22">Add Last Name:</Label>
+        <Label Grid.Row="2" Margin="14,21,329,21" Grid.ColumnSpan="2">Add Middle Name:</Label>
+        <Label Grid.Row="3" Margin="23,18,13,23">Add Active:</Label>
+        <Label Grid.Row="4" Margin="24,22,38,22">Add Image Id:</Label>
 
-        <Button x:Name="Cancel" Grid.Row="7" Click="Cancel_Click">
+        <TextBox x:Name="tb1"  Grid.Column="1" Grid.Row="0" TextChanged="tb1_TextChanged" Margin="0,11,0,10"></TextBox>
+        <TextBox x:Name="tb2" Grid.Column="1" Margin="0,12,0,10" Grid.Row="1"/>
+        <TextBox x:Name="tb3" Grid.Column="1" Grid.Row="2" Margin="0,10,0,11"></TextBox>
+        <TextBox x:Name="tb5" Grid.Column="1" Grid.Row="3" Margin="0,72,0,72" Grid.RowSpan="3"></TextBox>
+
+        <Button x:Name="Cancel" Grid.Row="5" Click="Cancel_Click" Margin="60,10,298,26" Grid.ColumnSpan="2">
             <Viewbox>
                 <Label>Cancel</Label>
             </Viewbox>
         </Button>
-        <Button x:Name="Save" Grid.Row="7" Grid.Column="1" Click="Save_Click">
+        <Button x:Name="Save" Grid.Row="5" Grid.Column="1" Click="Save_Click" Margin="94,10,88,26">
             <Viewbox>
                 <Label>Save</Label>
             </Viewbox>
         </Button>
+        <CheckBox x:Name="trueCheckbox" Content="True" HorizontalAlignment="Left" Margin="87,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="15" Width="82" Grid.Column="1" Checked="trueCheckbox_Checked"/>
 
     </Grid>
 </Window>
