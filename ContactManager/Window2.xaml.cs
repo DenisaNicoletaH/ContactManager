@@ -50,11 +50,6 @@ namespace ContactManager
             idOfContactToBeDeleted = contactId;*/
         }
 
-        private void PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             
