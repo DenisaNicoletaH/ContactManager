@@ -8,10 +8,13 @@
         Title="Window2" Height="450" Width="800">
     <Grid>
         <Label Content="Contact Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="170"/>
-        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="107,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="107,113,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="FirstName" IsReadOnly="True" Text="{Binding Path=FirstNameContact}" HorizontalAlignment="Left" Margin="107,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="LastName" IsReadOnly="True" Text="{Binding Path=LastNameContact}" HorizontalAlignment="Left" Margin="107,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
         <Label Content="First Name:" HorizontalAlignment="Left" Margin="28,86,0,0" VerticalAlignment="Top" Height="26" Width="70"/>
         <Label Content="Last Name:" HorizontalAlignment="Left" Margin="28,107,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="376,172,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="45" Width="62"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="483,172,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="45" Width="62"/>
+        <Button Content="Delete Contact" HorizontalAlignment="Left" Margin="577,172,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="45" Width="103"/>
 
 
         <!-- <ListView x:Name="listViewDetails" VerticalAlignment="Stretch" Grid.Column="1"

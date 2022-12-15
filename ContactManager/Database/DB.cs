@@ -77,6 +77,19 @@ namespace ContactManager.Database
             }
         }
 
+        public void UpdateContact(int contactId, string firstName, string lastName)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Address GetAddressForContact(int contactId)
         {
             Address address = new Address();
