@@ -54,13 +54,15 @@ namespace ContactManager
             detailsWindow.Focus();
         }
 
-        //Add Contact Button
-        /*private void AddContact_Click(object sender, RoutedEventArgs e)
+        private void AddContact_Click(object sender, RoutedEventArgs e)
         {
             AddContact detailsWindow = new AddContact();
             detailsWindow.Show();
             detailsWindow.Focus();
-        }*/
+            this.Close();
+
+
+        }
     
 
       

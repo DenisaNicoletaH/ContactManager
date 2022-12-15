@@ -94,6 +94,30 @@ namespace ContactManager.Database
                 command.ExecuteNonQuery();
             }
         }
+        public List<Address> GetAddresses()
+        {
+            List<Address> addresses = new List<Address>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Address tact WHERE Active = 1", con);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    Address address = new Address();
+                    address.Id = (int)sdr["Id"];
+                    address.Street = sdr["Street"].ToString();
+                    address.City = sdr["City"].ToString();
+                    address.State = sdr["State"].ToString();
+                    address.PostalCode = sdr["PostalCode"].ToString();
+                    addresses.Add(address);
+                }
+                sdr.Close();
+            }
+
+
+            return addresses;
+        }
 
         public Address GetAddressForContact(int contactId)
         {
@@ -109,7 +133,9 @@ namespace ContactManager.Database
                     address.Id = (int)sdr["Id"];
                     address.Street = sdr["Street"].ToString();
                     address.City = sdr["City"].ToString();
+                    address.State = sdr["State"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
+                    address.TypeCode = sdr["Type_Code"].ToString();
                 }
                 sdr.Close();
             }

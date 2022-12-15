@@ -61,6 +61,11 @@ namespace ContactManager
             FirstNameContact = contact.FirstName;
             LastName.Text = contact.LastName;
             LastNameContact = contact.LastName;
+            var addresses = dB.GetAddresses();
+            foreach (var address in addresses)
+            {
+                this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, /*PostalCode=address.PostalCode*/ });
+            }
         }
     
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -80,5 +85,14 @@ namespace ContactManager
             this.Close();
         }
 
+        private void addressDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var address = addressDetails.SelectedItem as Address;
+            var addressId = address.Id;
+            AddressDetails detailsWindow = new AddressDetails(addressId);
+            detailsWindow.Show();
+            detailsWindow.Focus();
+            //this.Close();
+        }
     }
 }
