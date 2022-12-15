@@ -12,31 +12,31 @@
         <TextBox x:Name="LastName" IsReadOnly="True" Text="{Binding Path=LastNameContact}" HorizontalAlignment="Left" Margin="107,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
         <Label Content="First Name:" HorizontalAlignment="Left" Margin="28,86,0,0" VerticalAlignment="Top" Height="26" Width="70"/>
         <Label Content="Last Name:" HorizontalAlignment="Left" Margin="28,107,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Margin="132,217,0,0" VerticalAlignment="Top" Height="26" Width="68" RenderTransformOrigin="0.438,-1.525"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Margin="28,128,0,0" VerticalAlignment="Top" Height="26" Width="68" RenderTransformOrigin="0.438,-1.525"/>
+        <ListView x:Name="addressDetails" VerticalAlignment="Top"  Width="200" HorizontalAlignment="Left" Height="100" 
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="107,137,0,0" MouseDoubleClick="addressDetails_MouseDoubleClick" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Street" DisplayMemberBinding="{Binding Street}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}"/>
+                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding State}"/>
+
+                    <!--<GridViewColumn Header="Delete" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" MouseDoubleClick="DeleteContact" CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn> -->
+                </GridView>
+            </ListView.View>
+        </ListView>
         <!--<Label Content="Email:" HorizontalAlignment="Left" Margin="130,326,0,0" VerticalAlignment="Top" Height="26" Width="68" RenderTransformOrigin="0.438,-1.525"/>
         <TextBox x:Name="Email" HorizontalAlignment="Left" Margin="220,326,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18" IsReadOnly="True" RenderTransformOrigin="0.593,0.502"/>
         <TextBox x:Name="PhoneB" HorizontalAlignment="Left" Margin="220,286,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18" IsReadOnly="True"/>-->
         <Button Content="Edit" HorizontalAlignment="Left" Margin="376,172,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="45" Width="62"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="483,172,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="45" Width="62"/>
         <Button Content="Delete Contact" HorizontalAlignment="Left" Margin="577,172,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="45" Width="103"/>
-
-        <!-- <ListView x:Name="listViewDetails" VerticalAlignment="Stretch" Grid.Column="1"
-              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,0,0,0" Grid.ColumnSpan="2" SelectionChanged="listViewDetails_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Middle Name" DisplayMemberBinding="{Binding MiddleName}"/>
-                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Delete" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" MouseDoubleClick="DeleteContact" CommandParameter="{Binding}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
     </Grid>
 </Window>
