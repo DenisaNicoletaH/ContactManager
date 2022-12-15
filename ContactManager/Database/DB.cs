@@ -142,6 +142,33 @@ namespace ContactManager.Database
             return address;
         }
 
+        public void UpdateAddress(int addressId, string street, string city, string state, string postalCode, string typeCode)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Address SET Street=@Street, City=@City, State=@State, PostalCode=@PostalCode, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", addressId);
+                command.Parameters.AddWithValue("@Street", street);
+                command.Parameters.AddWithValue("@City", city);
+                command.Parameters.AddWithValue("@State", state);
+                command.Parameters.AddWithValue("@PostalCode", postalCode);
+                command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAddress(int addressId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Address SET Active = 0 WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", addressId);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public List<Phone> getPhoneForContact(int contact_id)
         {
            List <Phone> phonesA = new List<Phone>();
