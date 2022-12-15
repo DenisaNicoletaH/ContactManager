@@ -52,6 +52,8 @@ namespace ContactManager
 
         public Window2(int id)
         {
+
+            //thereessss ann issueeeeeeeee hehehe for fixing later ;)
             InitializeComponent();
             this.DataContext = this;
             var contact = dB.GetContact(id);

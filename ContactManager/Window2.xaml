@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="Window2" Height="450" Width="800">
+        Title="Window2" Height="450" Width="500">
     <Grid>
         <Label Content="Contact Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="170"/>
         <TextBox x:Name="FirstName" IsReadOnly="True" Text="{Binding Path=FirstNameContact}" HorizontalAlignment="Left" Margin="107,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
