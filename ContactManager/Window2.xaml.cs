@@ -27,11 +27,13 @@ namespace ContactManager
         public Window2(int id)
         {
 
-            //thereessss ann issueeeeeeeee hehehe for fixing later ;)
             InitializeComponent();
+            
             var contact = dB.GetContact(id);
+            var phone = dB.getPhoneForContact(id);
             FirstName.Text = contact.FirstName;
             LastName.Text = contact.LastName;
+            PhoneB.Text = phone.First().PhoneNumber; //Change this to a scrollview
             //this.listViewDetails.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, MiddleName = contact.MiddleName, LastName = contact.LastName});
         }
         private void DeleteContact(Object sender, RoutedEventArgs e)
@@ -49,11 +51,14 @@ namespace ContactManager
             var contactId = contact.Id;
             idOfContactToBeDeleted = contactId;*/
         }
-
+    
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            Button editButton = sender as Button;
+          //  if (editButton == OnMouseDoubleClick)
             
-            if()
+
+            
         }
     }
 }

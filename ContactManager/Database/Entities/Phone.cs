@@ -11,9 +11,15 @@ namespace ContactManager.Database.Entities
     {
         public int Id { get; set; }
         public string PhoneNumber { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
 
+public Phone(int id, string phoneNumber)
+        {
+            Id = id;
+            PhoneNumber = phoneNumber;
+        }
 
+        public Phone()
+        {
+        }
     }
 }

@@ -104,23 +104,20 @@ namespace ContactManager.Database
             return address;
         }
 
-        //Phone-------Maybe change---It is not good :) i wanna cry
-        public List<Phone> getPhoneForContact(int phoneId)
+        public List<Phone> getPhoneForContact(int contact_id)
         {
            List <Phone> phonesA = new List<Phone>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Id=@Id", con);
-                command.Parameters.AddWithValue("@Id", phoneId);
+                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Contact_Id=@Contact_Id", con);
+                command.Parameters.AddWithValue("@Contact_Id", contact_id);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
                     Phone phone = new Phone();
                     phone.Id = (int)sdr["Id"];
-                    phone.FirstName = sdr["FirstName"].ToString();
-                    phone.LastName = sdr["LastName"].ToString();
-                    phone.PhoneNumber = sdr["Phone Number"].ToString();
+                    phone.PhoneNumber = sdr["Phone"].ToString();
                     phonesA.Add(phone);
 
 

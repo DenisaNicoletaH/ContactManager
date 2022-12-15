@@ -25,10 +25,12 @@ namespace ContactManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             //this shows the window
             InitializeComponent();
+           
 
             DB dB = new DB();
             var contacts = dB.GetContacts();
@@ -38,6 +40,7 @@ namespace ContactManager
                 this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, /*MiddleName = contact.MiddleName */ });
 
             }
+           
 
         }
 
@@ -57,9 +60,16 @@ namespace ContactManager
             AddContact detailsWindow = new AddContact();
             detailsWindow.Show();
             detailsWindow.Focus();
+            this.Close();
+           
+           
         }
-    
 
+       
+    
+           
       
     }
+
+    
 }
