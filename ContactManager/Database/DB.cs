@@ -197,6 +197,23 @@ namespace ContactManager.Database
             return phonesA;
             
         }
+        /*
+        //Add Phone--->Problem, will fix later--------------------------------------------------
+        public List<Phone> AddPhonesForContact(int contact_id,string phone,char type_code)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("ADD Phone")){
+
+                }
+
+            }
+
+
+        }
+        //----------------------------------------------------------------------------------------
+        */
 
         public List<Email> getEmailsForContact(int contact_id)
         {
@@ -218,6 +235,8 @@ namespace ContactManager.Database
             }
             return emails;
         }
+
+       
 
 
 
