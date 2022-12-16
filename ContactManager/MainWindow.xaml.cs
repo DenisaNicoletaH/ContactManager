@@ -59,9 +59,7 @@ namespace ContactManager
             AddContact detailsWindow = new AddContact();
             detailsWindow.Show();
             detailsWindow.Focus();
-            this.Close();
-
-
+            //this.Close();
         }
     
 

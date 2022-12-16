@@ -38,7 +38,7 @@ namespace ContactManager
                 string fName = tb1.Text;
                 string lName = tb2.Text;
                 string mName = tb3.Text;
-                string active = trueCheckbox.IsChecked;
+                string active = trueCheckbox.IsChecked.ToString();
 
                 string iId = tb5.Text;
                 int imageId=-1;

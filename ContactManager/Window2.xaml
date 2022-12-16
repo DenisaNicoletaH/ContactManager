@@ -20,8 +20,8 @@
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="20"/>
                     <GridViewColumn Header="Street" DisplayMemberBinding="{Binding Street}" Width="100"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="80"/>
+                    <GridViewColumn Header="State/Province" DisplayMemberBinding="{Binding State}" Width="100"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" Width="100"/>
-                    <GridViewColumn Header="State/Province" DisplayMemberBinding="{Binding Country}" Width="100"/>
 
                     <!--<GridViewColumn Header="Delete" Width="200">
                         <GridViewColumn.CellTemplate>

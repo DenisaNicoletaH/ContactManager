@@ -61,10 +61,10 @@ namespace ContactManager
             FirstNameContact = contact.FirstName;
             LastName.Text = contact.LastName;
             LastNameContact = contact.LastName;
-            var addresses = dB.GetAddresses();
+            var addresses = dB.GetAddressesForContact(id);
             foreach (var address in addresses)
             {
-                this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, /*PostalCode=address.PostalCode*/ });
+                this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, Country = address.Country /*PostalCode=address.PostalCode*/ });
             }
         }
     

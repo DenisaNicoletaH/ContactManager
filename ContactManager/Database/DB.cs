@@ -100,7 +100,7 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Address tact WHERE Active = 1", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Active = 1", con);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
@@ -109,6 +109,7 @@ namespace ContactManager.Database
                     address.Street = sdr["Street"].ToString();
                     address.City = sdr["City"].ToString();
                     address.State = sdr["State"].ToString();
+                    address.Country = sdr["Country"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
                     addresses.Add(address);
                 }
@@ -119,9 +120,9 @@ namespace ContactManager.Database
             return addresses;
         }
 
-        public Address GetAddressForContact(int contactId)
+        public List<Address> GetAddressesForContact(int contactId)
         {
-            Address address = new Address();
+            List<Address> addresses = new List<Address>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
@@ -130,16 +131,19 @@ namespace ContactManager.Database
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
+                    Address address = new Address();
                     address.Id = (int)sdr["Id"];
                     address.Street = sdr["Street"].ToString();
                     address.City = sdr["City"].ToString();
                     address.State = sdr["State"].ToString();
+                    address.Country = sdr["Country"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
                     address.TypeCode = sdr["Type_Code"].ToString();
+                    addresses.Add(address);
                 }
                 sdr.Close();
             }
-            return address;
+            return addresses;
         }
 
         public void UpdateAddress(int addressId, string street, string city, string state, string postalCode, string typeCode)

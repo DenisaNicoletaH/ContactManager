@@ -25,6 +25,7 @@ namespace ContactManager
         DB dB = new DB();
         private string street;
         private string city;
+        private string state;
         private string country;
         private string postalCode;
         private string typeCode;
@@ -40,11 +41,18 @@ namespace ContactManager
             get { return city; }
             set { city = value; OnPropertyChanged("CityAddress"); }
         }
-        
+
+
+        public string StateAddress
+        {
+            get { return state; }
+            set { state = value; OnPropertyChanged("StateAddress"); }
+        }
+
         public string CountryAddress
         {
             get { return country; }
-            set { country = value; OnPropertyChanged("StateAddress"); }
+            set { country = value; OnPropertyChanged("CountryAddress"); }
         }
         
         public string PostalCodeAddress
@@ -70,18 +78,23 @@ namespace ContactManager
         {
             InitializeComponent();
             this.DataContext = this;
-            var address = dB.GetAddressForContact(id);
-            streetBox.Text = address.Street;
-            StreetAddress=address.Street;
-            cityBox.Text = address.City;
-            CityAddress = address.City;
-            stateBox.Text = address.State;
-            CountryAddress = address.State;
-            pcBox.Text = address.PostalCode;
-            PostalCodeAddress = address.PostalCode;
-            tcBox.Text = address.TypeCode;
-            TypeCodeAddress = address.TypeCode;
-            addressId = id;
+            var addresses = dB.GetAddressesForContact(id);
+            foreach (var address in addresses)
+            {
+                streetBox.Text = address.Street;
+                StreetAddress = address.Street;
+                cityBox.Text = address.City;
+                CityAddress = address.City;
+                stateBox.Text = address.State;
+                StateAddress = address.State;
+                CountryAddress = address.Country;
+                pcBox.Text = address.PostalCode;
+                PostalCodeAddress = address.PostalCode;
+                tcBox.Text = address.TypeCode;
+                TypeCodeAddress = address.TypeCode;
+                addressId = id;
+            }
+            
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
