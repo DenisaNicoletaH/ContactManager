@@ -126,8 +126,8 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Id=@Id", con);
-                command.Parameters.AddWithValue("@Id", contactId);
+                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Contact_Id=@Contact_Id", con);
+                command.Parameters.AddWithValue("@Contact_Id", contactId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
