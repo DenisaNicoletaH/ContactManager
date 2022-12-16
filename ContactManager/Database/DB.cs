@@ -197,24 +197,28 @@ namespace ContactManager.Database
             return phonesA;
             
         }
-        /*
+        
         //Add Phone--->Problem, will fix later--------------------------------------------------
-        public List<Phone> AddPhonesForContact(int contact_id,string phone,char type_code)
+        public List<Phone> AddPhonesForContact(int contact_id,string phone,int type_code)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("ADD Phone")){
+                SqlCommand command = new SqlCommand("CREATE Phone SET Phone=@phone, Contact_Id=@contact_id, Type_Code=@type_code WHERE Id=@Id", con);
 
-                }
+                command.Parameters.AddWithValue("@Id", contact_id);
+                command.Parameters.AddWithValue("@Type", type_code);
+                command.Parameters.AddWithValue("@Phone", phone);
+                command.ExecuteNonQuery();
+
+
+            
 
             }
 
 
         }
-        //----------------------------------------------------------------------------------------
-        */
-
+        
         public List<Email> getEmailsForContact(int contact_id)
         {
             List<Email> emails = new List<Email>();
