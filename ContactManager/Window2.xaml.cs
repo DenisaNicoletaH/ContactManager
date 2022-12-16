@@ -72,6 +72,12 @@ namespace ContactManager
             {
                 this.emaildetails.Items.Add(new Email { Id = email.Id, EmailString = email.EmailString });
             }
+
+            var phones = dB.getPhonesForContact(id);
+            foreach (var phone in phones)
+            {
+                this.phonedetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode });
+            }
         }
     
         private void EditButton_Click(object sender, RoutedEventArgs e)

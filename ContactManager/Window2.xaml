@@ -48,8 +48,8 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Area Code" DisplayMemberBinding="{Binding Street}" Width="70"/>
-                    <GridViewColumn Header="Number" DisplayMemberBinding="{Binding City}" Width="275"/>
+                    <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="70"/>
+                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="275"/>
 
                     <!--<GridViewColumn Header="Delete" Width="200">
                         <GridViewColumn.CellTemplate>

@@ -173,7 +173,7 @@ namespace ContactManager.Database
             }
         }
 
-        public List<Phone> getPhoneForContact(int contact_id)
+        public List<Phone> getPhonesForContact(int contact_id)
         {
            List <Phone> phonesA = new List<Phone>();
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -187,6 +187,7 @@ namespace ContactManager.Database
                     Phone phone = new Phone();
                     phone.Id = (int)sdr["Id"];
                     phone.PhoneNumber = sdr["Phone"].ToString();
+                    phone.TypeCode = sdr["Type_Code"].ToString();
                     phonesA.Add(phone);
 
 
@@ -203,8 +204,8 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Id=@Id", con);
-                command.Parameters.AddWithValue("@Id", contact_id);
+                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Contact_Id=@Contact_Id", con);
+                command.Parameters.AddWithValue("@Contact_Id", contact_id);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
