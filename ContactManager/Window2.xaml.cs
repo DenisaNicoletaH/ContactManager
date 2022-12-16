@@ -66,6 +66,12 @@ namespace ContactManager
             {
                 this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, Country = address.Country /*PostalCode=address.PostalCode*/ });
             }
+
+            var emails = dB.getEmailsForContact(id);
+            foreach(var email in emails)
+            {
+                this.emaildetails.Items.Add(new Email { Id = email.Id, EmailString = email.EmailString });
+            }
         }
     
         private void EditButton_Click(object sender, RoutedEventArgs e)

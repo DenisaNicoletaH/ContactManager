@@ -66,7 +66,8 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding Id}" Width="400"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailString}" Width="400"/>
 
                     <!--<GridViewColumn Header="Delete" Width="200">
                         <GridViewColumn.CellTemplate>

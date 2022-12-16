@@ -197,10 +197,31 @@ namespace ContactManager.Database
             
         }
 
-     
-        
+        public List<Email> getEmailsForContact(int contact_id)
+        {
+            List<Email> emails = new List<Email>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", contact_id);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    Email email = new Email();
+                    email.Id = (int)sdr["Id"];
+                    email.EmailString = sdr["EmailAddress"].ToString();
+                    emails.Add(email);
+                }
+                sdr.Close();
+            }
+            return emails;
+        }
 
-     
+
+
+
+
         //List of Contacts goes to the center of the dockpanel
 
 
