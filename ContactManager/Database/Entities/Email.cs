@@ -9,8 +9,8 @@ namespace ContactManager.Database.Entities
     internal class Email
     {
         public int Id { get; set; }
-        public string EmailString { get; set; }
-        public string Type { get; set; }
+        public string EmailAddress { get; set; }
+        public string TypeCode { get; set; }
        
     }
 }

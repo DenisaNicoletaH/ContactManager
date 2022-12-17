@@ -246,14 +246,14 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Contact_Id=@Contact_Id", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Contact_Id=@Contact_Id AND Active=1", con);
                 command.Parameters.AddWithValue("@Contact_Id", contact_id);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
                     Email email = new Email();
                     email.Id = (int)sdr["Id"];
-                    email.EmailString = sdr["EmailAddress"].ToString();
+                    email.EmailAddress = sdr["EmailAddress"].ToString();
                     emails.Add(email);
                 }
                 sdr.Close();
@@ -261,7 +261,50 @@ namespace ContactManager.Database
             return emails;
         }
 
-       
+        public Email GetEmail(int emailId)
+        {
+            Email email = new Email();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", emailId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    email.Id = (int)sdr["Id"];
+                    email.EmailAddress = sdr["EmailAddress"].ToString();
+                    email.TypeCode = sdr["Type_Code"].ToString();
+                }
+                sdr.Close();
+            }
+            return email;
+        }
+
+        public void UpdateEmail(int emailId, string emailAddress, string typeCode)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Email SET EmailAddress=@EmailAddress, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", emailId);
+                command.Parameters.AddWithValue("@EmailAddress", emailAddress);
+                command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.ExecuteNonQuery();
+            }
+        }
+        public void DeleteEmail(int emailId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Email SET Active = 0 WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", emailId);
+                command.ExecuteNonQuery();
+            }
+        }
+
+
 
 
 

@@ -70,7 +70,7 @@ namespace ContactManager
             var emails = dB.getEmailsForContact(id);
             foreach(var email in emails)
             {
-                this.emaildetails.Items.Add(new Email { Id = email.Id, EmailString = email.EmailString });
+                this.emailDetails.Items.Add(new Email { Id = email.Id, EmailAddress = email.EmailAddress });
             }
 
             var phones = dB.getPhonesForContact(id);
@@ -114,6 +114,15 @@ namespace ContactManager
             PhoneDetails detailsWindow = new PhoneDetails(phoneId);
             detailsWindow.Show();
             detailsWindow.Focus();
+        }
+        private void emailDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var email = emailDetails.SelectedItem as Email;
+            var emailId = email.Id;
+            EmailDetails detailsWindow = new EmailDetails(emailId);
+            detailsWindow.Show();
+            detailsWindow.Focus();
+            //this.Close();
         }
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)

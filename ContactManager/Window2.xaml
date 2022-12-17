@@ -44,33 +44,17 @@
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
                     <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="90"/>
                     <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="300"/>
-
-                    <!--<GridViewColumn Header="Delete" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" MouseDoubleClick="DeleteContact" CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn> -->
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <ListView x:Name="emaildetails" VerticalAlignment="Top"  Width="422" HorizontalAlignment="Center" Height="100" 
-            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,409,0,0" MouseDoubleClick="addressDetails_MouseDoubleClick" >
+        <ListView x:Name="emailDetails" VerticalAlignment="Top"  Width="422" HorizontalAlignment="Center" Height="100" 
+            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,409,0,0" MouseDoubleClick="emailDetails_MouseDoubleClick" >
 
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailString}" Width="400"/>
-
-                    <!--<GridViewColumn Header="Delete" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" MouseDoubleClick="DeleteContact" CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn> -->
+                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailAddress}" Width="400"/>
                 </GridView>
             </ListView.View>
         </ListView>

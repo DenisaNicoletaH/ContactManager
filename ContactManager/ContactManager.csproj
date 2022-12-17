@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="Database\Entities\Address.cs" />
     <Compile Include="Database\Entities\Email.cs" />
+    <Compile Include="EmailDetails.xaml.cs">
+      <DependentUpon>EmailDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PhoneDetails.xaml.cs">
       <DependentUpon>PhoneDetails.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddressDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmailDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
