@@ -76,7 +76,7 @@ namespace ContactManager
             var phones = dB.getPhonesForContact(id);
             foreach (var phone in phones)
             {
-                this.phonedetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode });
+                this.phoneDetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode });
             }
         }
     
@@ -107,9 +107,13 @@ namespace ContactManager
             //this.Close();
         }
 
-        private void phonedetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void phoneDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            var phone = phoneDetails.SelectedItem as Phone;
+            var phoneId = phone.Id;
+            PhoneDetails detailsWindow = new PhoneDetails(phoneId);
+            detailsWindow.Show();
+            detailsWindow.Focus();
         }
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)

@@ -36,8 +36,8 @@
         <Label Content="Phone" HorizontalAlignment="Left" Margin="283,249,0,0" VerticalAlignment="Top" Height="26" Width="58" RenderTransformOrigin="0.438,-1.525"/>
         <Label Content="Email" HorizontalAlignment="Left" Height="24" Margin="287,381,0,0" VerticalAlignment="Top" Width="50"/>
 
-        <ListView x:Name="phonedetails" VerticalAlignment="Top"  Width="425" HorizontalAlignment="Left" Height="100" 
-            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="110,281,0,0" MouseDoubleClick="addressDetails_MouseDoubleClick" SelectionChanged="phonedetails_SelectionChanged" >
+        <ListView x:Name="phoneDetails" VerticalAlignment="Top"  Width="425" HorizontalAlignment="Left" Height="100" 
+            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="110,281,0,0" MouseDoubleClick="phoneDetails_MouseDoubleClick">
 
             <ListView.View>
                 <GridView>

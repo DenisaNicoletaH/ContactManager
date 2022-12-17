@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="Database\Entities\Address.cs" />
     <Compile Include="Database\Entities\Email.cs" />
+    <Compile Include="PhoneDetails.xaml.cs">
+      <DependentUpon>PhoneDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window2.xaml.cs">
       <DependentUpon>Window2.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PhoneDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -179,7 +179,7 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Contact_Id=@Contact_Id", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Contact_Id=@Contact_Id AND Active = 1", con);
                 command.Parameters.AddWithValue("@Contact_Id", contact_id);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
@@ -197,7 +197,49 @@ namespace ContactManager.Database
             return phonesA;
             
         }
-        
+        public void UpdatePhone(int addressId, string phoneNumber, string typeCode)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Phone SET Phone=@PhoneNumber, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", addressId);
+                command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.ExecuteNonQuery();
+            }
+        }
+        public void DeletePhone(int phoneId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Phone SET Active = 0 WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", phoneId);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public Phone GetPhone(int phoneId)
+        {
+            Phone phone = new Phone();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", phoneId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    phone.Id = (int)sdr["Id"];
+                    phone.PhoneNumber = sdr["Phone"].ToString();
+                    phone.TypeCode = sdr["Type_Code"].ToString();
+                }
+                sdr.Close();
+            }
+            return phone;
+        }
+
         public List<Email> getEmailsForContact(int contact_id)
         {
             List<Email> emails = new List<Email>();
