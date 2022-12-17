@@ -20,7 +20,7 @@
         <Label Grid.Row="0" Margin="29,21,19,21">Add Phone Number:</Label>
         <Label Grid.Row="1" Margin="17,22,31,22">Add Type Code:</Label>
 
-        <TextBox x:Name="tb1"  Grid.Column="1" Grid.Row="0" TextChanged="tb1_TextChanged" Margin="0,11,10,10"></TextBox>
+        <TextBox x:Name="tb1"  Grid.Column="1" Grid.Row="0" Margin="0,11,10,10"></TextBox>
         <TextBox x:Name="tb2" Grid.Column="1" Margin="0,12,10,10" Grid.Row="1"/>
 
         <Button x:Name="Cancel" Grid.Row="5" Click="Cancel_Click" Margin="60,10,298,26" Grid.ColumnSpan="2">

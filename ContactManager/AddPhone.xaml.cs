@@ -28,6 +28,8 @@ namespace ContactManager
         {
             InitializeComponent();
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
