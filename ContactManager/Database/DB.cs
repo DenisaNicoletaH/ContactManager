@@ -94,30 +94,28 @@ namespace ContactManager.Database
                 command.ExecuteNonQuery();
             }
         }
-        public List<Address> GetAddresses()
+        public Address GetAddress(int addressId)
         {
-            List<Address> addresses = new List<Address>();
+            Address address = new Address();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Active = 1", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", addressId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    Address address = new Address();
                     address.Id = (int)sdr["Id"];
                     address.Street = sdr["Street"].ToString();
                     address.City = sdr["City"].ToString();
                     address.State = sdr["State"].ToString();
                     address.Country = sdr["Country"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
-                    addresses.Add(address);
+                    address.TypeCode = sdr["Type_Code"].ToString();
                 }
                 sdr.Close();
             }
-
-
-            return addresses;
+            return address;
         }
 
         public List<Address> GetAddressesForContact(int contactId)
@@ -126,7 +124,7 @@ namespace ContactManager.Database
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Contact_Id=@Contact_Id", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Address WHERE Contact_Id=@Contact_Id AND Active=1", con);
                 command.Parameters.AddWithValue("@Contact_Id", contactId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
@@ -146,16 +144,17 @@ namespace ContactManager.Database
             return addresses;
         }
 
-        public void UpdateAddress(int addressId, string street, string city, string state, string postalCode, string typeCode)
+        public void UpdateAddress(int addressId, string street, string city, string state, string country, string postalCode, string typeCode)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Address SET Street=@Street, City=@City, State=@State, PostalCode=@PostalCode, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Address SET Street=@Street, City=@City, State=@State, Country=@Country, PostalCode=@PostalCode, Type_Code=@TypeCode WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", addressId);
                 command.Parameters.AddWithValue("@Street", street);
                 command.Parameters.AddWithValue("@City", city);
                 command.Parameters.AddWithValue("@State", state);
+                command.Parameters.AddWithValue("@Country", country);
                 command.Parameters.AddWithValue("@PostalCode", postalCode);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
                 command.ExecuteNonQuery();

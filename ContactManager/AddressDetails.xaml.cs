@@ -78,23 +78,20 @@ namespace ContactManager
         {
             InitializeComponent();
             this.DataContext = this;
-            var addresses = dB.GetAddressesForContact(id);
-            foreach (var address in addresses)
-            {
-                streetBox.Text = address.Street;
-                StreetAddress = address.Street;
-                cityBox.Text = address.City;
-                CityAddress = address.City;
-                stateBox.Text = address.State;
-                StateAddress = address.State;
-                CountryAddress = address.Country;
-                pcBox.Text = address.PostalCode;
-                PostalCodeAddress = address.PostalCode;
-                tcBox.Text = address.TypeCode;
-                TypeCodeAddress = address.TypeCode;
-                addressId = id;
-            }
-            
+            var address = dB.GetAddress(id);
+            streetBox.Text = address.Street;
+            StreetAddress = address.Street;
+            cityBox.Text = address.City;
+            CityAddress = address.City;
+            stateBox.Text = address.State;
+            StateAddress = address.State;
+            countryBox.Text = address.Country;
+            CountryAddress = address.Country;
+            pcBox.Text = address.PostalCode;
+            PostalCodeAddress = address.PostalCode;
+            tcBox.Text = address.TypeCode;
+            TypeCodeAddress = address.TypeCode;
+            addressId = id;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -102,13 +99,15 @@ namespace ContactManager
             streetBox.IsReadOnly = false;
             cityBox.IsReadOnly = false;
             stateBox.IsReadOnly = false;
+            countryBox.IsReadOnly = false;
             pcBox.IsReadOnly = false;
             tcBox.IsReadOnly = false;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.UpdateAddress(addressId, StreetAddress, CityAddress, StateAddress, PostalCodeAddress, TypeCodeAddress);
+            dB.UpdateAddress(addressId, StreetAddress, CityAddress, StateAddress, CountryAddress, PostalCodeAddress, TypeCodeAddress);
+            this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
