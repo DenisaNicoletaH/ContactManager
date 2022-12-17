@@ -35,15 +35,35 @@ namespace ContactManager
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string phoneNumber = tb1.Text;
+                string street = Street.Text;
+                string city = City.Text;
+                string state = State.Text;
+                string postalCode = PostalCode.Text;
+                string country = Country.Text;
+
                 List<char> typeCodes = new List<char>();
 
-                if (phoneNumber.Equals("") || tb2.Text.Equals(""))
+                if (street.Equals("") || Street.Text.Equals("") || city.Equals("") || City.Text.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
-                char typeCode = tb2.Text.ToUpper().ToCharArray()[0];
+                if(state.Length > 2 || State.Text.Length > 2)
+                {
+                    MessageBox.Show("The state should be 2 characters only.");
+                    return;
+                }
+                if (postalCode.Length > 6 || PostalCode.Text.Length > 6)
+                {
+                    MessageBox.Show("The postal code should be 6 characters only.");
+                    return;
+                }
+                if(country.Length < 2  || Country.Text.Length < 2)
+                {
+                    MessageBox.Show("The country cannot be less than 2 characters.");
+                    return;
+                }
+                char typeCode = Type.Text.ToUpper().ToCharArray()[0];
 
                 using (SqlConnection con2 = new SqlConnection(connectionString))
                 {
@@ -72,13 +92,17 @@ namespace ContactManager
 
                 DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active,Contact_Id) VALUES(@phone,@typeCode,@createDate,@updateDate,@active,@contactId)", con);
-                command.Parameters.AddWithValue("@phone", phoneNumber);
-                command.Parameters.AddWithValue("@typeCode", typeCode);
-                command.Parameters.AddWithValue("@active", true);
-                command.Parameters.AddWithValue("@createDate", currentTime);
-                command.Parameters.AddWithValue("@updateDate", currentTime);
-                command.Parameters.AddWithValue("contactId", contact_id);
+                SqlCommand command = new SqlCommand("INSERT INTO Address(Street,City,State,PostalCode,CreateDate,UpdateDate,Active,Type_Code,Contact_Id,Country) VALUES(@Street,@City,@State,@PostalCode,@CreateDate,@UpdateDate,@Active,@Type_Code,@Contact_Id,@Country)", con);
+                command.Parameters.AddWithValue("@Street", street);
+                command.Parameters.AddWithValue("@City", city);
+                command.Parameters.AddWithValue("@State", state);
+                command.Parameters.AddWithValue("@PostalCode", postalCode);
+                command.Parameters.AddWithValue("@CreateDate", currentTime);
+                command.Parameters.AddWithValue("@UpdateDate", currentTime);
+                command.Parameters.AddWithValue("@Active", true);
+                command.Parameters.AddWithValue("@Type_Code", typeCode);
+                command.Parameters.AddWithValue("@Contact_Id", contact_id);
+                command.Parameters.AddWithValue("@Country", country);
                 command.ExecuteNonQuery();
                 this.Close();
             }

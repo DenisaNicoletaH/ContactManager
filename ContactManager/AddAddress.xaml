@@ -17,28 +17,34 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Margin="29,21,19,21">Add Street:</Label>
-        <Label Grid.Row="1" Margin="29,22,19,22">Add City:</Label>
+        <Label Grid.Row="0" Margin="29,21,19,10">Add Street:</Label>
+        <Label Grid.Row="1" Margin="29,14,19,10">Add City:</Label>
+        <Label Grid.Row="2" Margin="29,22,19,10" Content="Add State/Province:"/>
+        <Label Grid.Row="4" Margin="29,13,19,9" Content="Add Country:"/>
+        <Label Grid.Row="3" Margin="29,10,19,12" Content="Add Postal Code:"/>
+        <Label Grid.Row="5" Margin="24,13,24,9" Content="Add TypeCode:"/>
 
+        <TextBox x:Name="Street"  Grid.Column="1" Grid.Row="0" Margin="0,11,10,10"/>
+        <TextBox x:Name="City" Grid.Column="1" Margin="0,12,10,10" Grid.Row="1"/>
+        <TextBox x:Name="State"  Grid.Column="1" Grid.Row="2" Margin="0,10,10,11"/>
+        <TextBox x:Name="PostalCode"  Grid.Column="1" Grid.Row="3" Margin="0,10,10,11"/>
+        <TextBox x:Name="Country"  Grid.Column="1" Grid.Row="4" Margin="0,13,10,8"/>
+        <TextBox x:Name="Type"  Grid.Column="1" Grid.Row="5" Margin="0,11,10,10"/>
 
-        <TextBox x:Name="tb1"  Grid.Column="1" Grid.Row="0" Margin="0,11,10,10"></TextBox>
-        <TextBox x:Name="tb2" Grid.Column="1" Margin="0,12,10,10" Grid.Row="1"/>
-
-        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="5" Margin="60,10,298,26" Grid.ColumnSpan="2">
+        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="6" Margin="10,18,10,18">
             <Viewbox>
                 <Label>Cancel</Label>
             </Viewbox>
         </Button>
-        <Button x:Name="Save" Click="Save_Click" Grid.Row="5" Grid.Column="1" Margin="94,10,88,26">
+        <Button x:Name="Save" Click="Save_Click" Grid.Row="6" Grid.Column="1" Margin="91,18,91,18">
             <Viewbox>
                 <Label>Save</Label>
             </Viewbox>
         </Button>
-        <Label Grid.Row="2" Margin="29,22,19,22" Content="Add State/Province:"/>
-        <Label Grid.Row="3" Margin="29,22,19,22" Content="Add Country:"/>
-        <TextBox x:Name="tb1_Copy"  Grid.Column="1" Grid.Row="2" Margin="0,10,10,11"/>
-        <TextBox x:Name="tb1_Copy1"  Grid.Column="1" Grid.Row="3" Margin="0,10,10,11"/>
+        
     </Grid>
 </Window>
