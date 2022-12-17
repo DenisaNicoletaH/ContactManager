@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,20 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ContactManager
 {
     /// <summary>
-    /// Logique d'interaction pour AddPhone.xaml
+    /// Interaction logic for AddAddress.xaml
     /// </summary>
-    public partial class AddPhone : Window
+    public partial class AddAddress : Window
     {
+       
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         int contact_id = 0;
 
-        public AddPhone(int c_id)
+        public AddAddress(int c_id)
         {
             InitializeComponent();
             contact_id = c_id;

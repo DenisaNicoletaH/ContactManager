@@ -119,5 +119,13 @@ namespace ContactManager
             detailsWindow.Focus();
             //this.Close();
         }
+
+        private void AddAddress_Click(object sender, RoutedEventArgs e)
+        {
+            AddAddress addAddressWindow = new AddAddress(idOfContactToBeDeleted);
+            addAddressWindow.Show();
+            addAddressWindow.Focus();
+
+        }
     }
 }
