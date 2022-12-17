@@ -114,7 +114,7 @@ namespace ContactManager
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)
         {
-            AddContact detailsWindow = new AddContact();
+            AddPhone detailsWindow = new AddPhone(idOfContactToBeDeleted);
             detailsWindow.Show();
             detailsWindow.Focus();
             //this.Close();

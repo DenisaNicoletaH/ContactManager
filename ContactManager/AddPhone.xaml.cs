@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ContactManager
@@ -23,10 +25,12 @@ namespace ContactManager
     public partial class AddPhone : Window
     {
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
-        
-        public AddPhone()
+        int contact_id = 0;
+
+        public AddPhone(int c_id)
         {
             InitializeComponent();
+            contact_id = c_id;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
@@ -35,8 +39,14 @@ namespace ContactManager
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string phoneNumber = tb1.Text;
-                string typeCode = tb1.Text;
-                ArrayList typeCodes = new ArrayList();
+                List<char> typeCodes = new List<char>();
+
+                if (phoneNumber.Equals("") || tb2.Text.Equals(""))
+                {
+                    MessageBox.Show("One or more of the fields above is empty");
+                    return;
+                }
+                char typeCode = tb2.Text.ToUpper().ToCharArray()[0];
 
                 using (SqlConnection con2 = new SqlConnection(connectionString))
                 {
@@ -65,12 +75,13 @@ namespace ContactManager
 
                 DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active) VALUES(@phone,@typeCode,@createDate,@updateDate,@active)", con);
+                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active,Contact_Id) VALUES(@phone,@typeCode,@createDate,@updateDate,@active,@contactId)", con);
                 command.Parameters.AddWithValue("@phone", phoneNumber);
                 command.Parameters.AddWithValue("@typeCode", typeCode);
                 command.Parameters.AddWithValue("@active", true);
                 command.Parameters.AddWithValue("@createDate", currentTime);
                 command.Parameters.AddWithValue("@updateDate", currentTime);
+                command.Parameters.AddWithValue("contactId", contact_id);
                 command.ExecuteNonQuery();
             }
         }
