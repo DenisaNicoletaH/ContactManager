@@ -48,7 +48,7 @@ namespace ContactManager
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
-                if(state.Length > 2 || State.Text.Length > 2)
+                if(state.Length != 2 || State.Text.Length != 2)
                 {
                     MessageBox.Show("The state should be 2 characters only.");
                     return;

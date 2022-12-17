@@ -3,6 +3,8 @@ using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,6 +108,59 @@ namespace ContactManager
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
+
+            if (StreetAddress.Equals("") || streetBox.Text.Equals("") ||
+                CityAddress.Equals("") || cityBox.Text.Equals("") || 
+                CountryAddress.Equals("") || countryBox.Text.Equals(""))
+            {
+                MessageBox.Show("One or more of the fields above is empty");
+                return;
+            }
+            if (StateAddress.Length != 2 || stateBox.Text.Length != 2)
+            {
+                MessageBox.Show("The state should be 2 characters only.");
+                return;
+            }
+            if (PostalCodeAddress.Length > 6 || pcBox.Text.Length > 6)
+            {
+                MessageBox.Show("The postal code should be 6 characters only.");
+                return;
+            }
+            if (CountryAddress.Length < 2 || countryBox.Text.Length < 2)
+            {
+                MessageBox.Show("The country cannot be less than 2 characters.");
+                return;
+            }
+            char typeCode = tcBox.Text.ToUpper().ToCharArray()[0];
+
+            List<char> typeCodes = new List<char>();
+            using (SqlConnection con2 = new SqlConnection(connectionString))
+            {
+                con2.Open();
+                SqlCommand cm = new SqlCommand("select Code from Type", con2);
+                SqlDataReader sdr = cm.ExecuteReader();
+                while (sdr.Read())
+                {
+                    typeCodes.Add(sdr["Code"].ToString().ToCharArray()[0]);
+                }
+            }
+
+            bool isExist = false;
+            foreach (char i in typeCodes)
+            {
+                if (typeCode.Equals(i))
+                {
+                    isExist = true;
+                }
+            }
+            if (!isExist)
+            {
+                MessageBox.Show("Type code is not valid");
+                return;
+            }
+
+            DateTime currentTime = DateTime.Now;
             dB.UpdateAddress(addressId, StreetAddress, CityAddress, StateAddress, CountryAddress, PostalCodeAddress, TypeCodeAddress);
             this.Close();
         }
