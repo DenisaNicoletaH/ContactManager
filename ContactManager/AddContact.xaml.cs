@@ -105,6 +105,7 @@ namespace ContactManager
                 command.Parameters.AddWithValue("@createDate", currentTime);
                 command.Parameters.AddWithValue("@updateDate", currentTime);
                 command.ExecuteNonQuery();
+                this.Close();
             }
         }
 
