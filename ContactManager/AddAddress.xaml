@@ -35,12 +35,12 @@
         <TextBox x:Name="Country"  Grid.Column="1" Grid.Row="4" Margin="0,13,10,8"/>
         <TextBox x:Name="Type"  Grid.Column="1" Grid.Row="5" Margin="0,11,10,10"/>
 
-        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="6" Margin="10,18,10,18">
+        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="6" Margin="10,18,533,10" Grid.ColumnSpan="2">
             <Viewbox>
                 <Label>Cancel</Label>
             </Viewbox>
         </Button>
-        <Button x:Name="Save" Click="Save_Click" Grid.Row="6" Grid.Column="1" Margin="91,18,91,18">
+        <Button x:Name="Save" Click="Save_Click" Grid.Row="6" Grid.Column="1" Margin="91,18,76,10">
             <Viewbox>
                 <Label>Save</Label>
             </Viewbox>

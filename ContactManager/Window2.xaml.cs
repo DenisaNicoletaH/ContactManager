@@ -140,5 +140,12 @@ namespace ContactManager
             addAddressWindow.Focus();
 
         }
+
+        private void AddEmail_Click(object sender, RoutedEventArgs e)
+        {
+            AddEmail addEmailWindow = new AddEmail(idOfContactToBeDeleted);
+            addEmailWindow.Show();
+            addEmailWindow.Focus();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -125,6 +126,14 @@ namespace ContactManager
             if (PostalCodeAddress.Length > 6 || pcBox.Text.Length > 6)
             {
                 MessageBox.Show("The postal code should be 6 characters only.");
+                return;
+            }
+            Regex rx = new Regex(@"^(?:[a-zA-Z]\d[a-zA-Z][ -]?\d[a-zA-Z]\d)$");
+            bool matchedString = rx.IsMatch(PostalCodeAddress);
+
+            if (!matchedString)
+            {
+                MessageBox.Show("The postal code should be in this format \"ANA NAN\"");
                 return;
             }
             if (CountryAddress.Length < 2 || countryBox.Text.Length < 2)

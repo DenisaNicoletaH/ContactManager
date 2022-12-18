@@ -59,5 +59,6 @@
             </ListView.View>
         </ListView>
         <Button Content="Add Phone" HorizontalAlignment="Left" Margin="550,331,0,0" VerticalAlignment="Top" Click="AddPhone_Click" RenderTransformOrigin="0.534,1.48"/>
+        <Button Content="Add Email" HorizontalAlignment="Left" Margin="550,444,0,0" VerticalAlignment="Top" Click="AddEmail_Click" RenderTransformOrigin="0.534,1.48"/>
     </Grid>
 </Window>

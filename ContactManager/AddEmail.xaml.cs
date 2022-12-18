@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,54 +13,47 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ContactManager
 {
     /// <summary>
-    /// Logique d'interaction pour AddPhone.xaml
+    /// Interaction logic for AddEmail.xaml
     /// </summary>
-    public partial class AddPhone : Window
+    public partial class AddEmail : Window
     {
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         int contact_id = 0;
-
-        public AddPhone(int c_id)
+        public AddEmail(int c_id)
         {
             InitializeComponent();
             contact_id = c_id;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string phoneNumber = phoneBox.Text;
+                string email = emailBox.Text;
                 List<char> typeCodes = new List<char>();
 
-                if (phoneNumber.Equals("") || phoneBox.Text.Equals(""))
+                if (email.Equals("") || emailBox.Text.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
+
+                Regex rx = new Regex(@".+\@.+\..+");
+                bool matchedString = rx.IsMatch(email);
+
+                if (!matchedString)
+                {
+                    MessageBox.Show("The email should include the at sign \"@\" and the period as in \".com\"");
+                    return;
+                }
+
                 char typeCode = tcBox.Text.ToUpper().ToCharArray()[0];
-
-                Regex rx = new Regex(@"[a-z]+");
-                bool matchedString = rx.IsMatch(phoneNumber);
-
-                if (phoneNumber.Length != 10)
-                {
-                    MessageBox.Show("Phone number should be 10 digits");
-                    return;
-                }
-
-                if (matchedString)
-                {
-                    MessageBox.Show("Phone number should only contain numbers");
-                    return;
-                }
 
                 using (SqlConnection con2 = new SqlConnection(connectionString))
                 {
@@ -91,15 +82,16 @@ namespace ContactManager
 
                 DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active,Contact_Id) VALUES(@phone,@typeCode,@createDate,@updateDate,@active,@contactId)", con);
-                command.Parameters.AddWithValue("@phone", phoneNumber);
-                command.Parameters.AddWithValue("@typeCode", typeCode);
-                command.Parameters.AddWithValue("@active", true);
-                command.Parameters.AddWithValue("@createDate", currentTime);
-                command.Parameters.AddWithValue("@updateDate", currentTime);
-                command.Parameters.AddWithValue("contactId", contact_id);
-                command.ExecuteNonQuery();
-                this.Close();
+                 SqlCommand command = new SqlCommand("INSERT INTO Email(EmailAddress,CreateDate,UpdateDate,Active,Type_Code,Contact_Id) VALUES(@emailAddress,@createDate,@updateDate,@active,@typeCode,@contactId)", con);
+                 command.Parameters.AddWithValue("@emailAddress", email);
+                 command.Parameters.AddWithValue("@createDate", currentTime);
+                 command.Parameters.AddWithValue("@updateDate", currentTime);
+                 command.Parameters.AddWithValue("@active", true);
+                 command.Parameters.AddWithValue("@typeCode", typeCode);
+                 command.Parameters.AddWithValue("@contactId", contact_id);
+                 command.ExecuteNonQuery();
+                 this.Close();
+
             }
         }
     }

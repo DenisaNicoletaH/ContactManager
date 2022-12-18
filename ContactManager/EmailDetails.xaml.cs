@@ -3,8 +3,10 @@ using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,7 +67,51 @@ namespace ContactManager
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
+
+            if (EmailAddressEmail.Equals("") || eAddress.Text.Equals(""))
+            {
+                MessageBox.Show("One or more of the fields above is empty");
+                return;
+            }
+
+            Regex rx = new Regex(@".+\@.+\..+");
+            bool matchedString = rx.IsMatch(EmailAddressEmail);
+
+            if (!matchedString)
+            {
+                MessageBox.Show("The email should include the at sign \"@\" and the period as in \".com\"");
+                return;
+            }
+
+            char typeCode = tCode.Text.ToUpper().ToCharArray()[0];
+            List<char> typeCodes = new List<char>();
+            using (SqlConnection con2 = new SqlConnection(connectionString))
+            {
+                con2.Open();
+                SqlCommand cm = new SqlCommand("select Code from Type", con2);
+                SqlDataReader sdr = cm.ExecuteReader();
+                while (sdr.Read())
+                {
+                    typeCodes.Add(sdr["Code"].ToString().ToCharArray()[0]);
+                }
+            }
+
+            bool isExist = false;
+            foreach (char i in typeCodes)
+            {
+                if (typeCode.Equals(i))
+                {
+                    isExist = true;
+                }
+            }
+            if (!isExist)
+            {
+                MessageBox.Show("Type code is not valid");
+                return;
+            }
             dB.UpdateEmail(emailId, EmailAddressEmail, TypeCodeEmail);
+            this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

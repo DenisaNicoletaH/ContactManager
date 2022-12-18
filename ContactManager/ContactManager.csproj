@@ -61,6 +61,9 @@
     <Compile Include="AddContact.xaml.cs">
       <DependentUpon>AddContact.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddEmail.xaml.cs">
+      <DependentUpon>AddEmail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddPhone.xaml.cs">
       <DependentUpon>AddPhone.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddContact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEmail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
