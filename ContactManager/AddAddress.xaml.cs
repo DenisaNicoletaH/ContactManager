@@ -1,4 +1,5 @@
-﻿using ContactManager.Database.Entities;
+﻿using ContactManager.Database;
+using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -25,6 +26,7 @@ namespace ContactManager
        
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         int contact_id = 0;
+        DB dB = new DB();
 
         public AddAddress(int c_id)
         {
@@ -45,6 +47,27 @@ namespace ContactManager
 
                 List<char> typeCodes = new List<char>();
 
+                Regex rxState = new Regex(@"[0-9]");
+                bool matchedStringState = rxState.IsMatch(state);
+                bool matchedStringCity = rxState.IsMatch(city);
+                bool matchedStringCountry = rxState.IsMatch(country);
+
+                if (matchedStringState)
+                {
+                    MessageBox.Show("The state should only contain letters.");
+                    return;
+                }
+                if (matchedStringCity)
+                {
+                    MessageBox.Show("The city should only contain letters.");
+                    return;
+                }
+                if (matchedStringCountry)
+                {
+                    MessageBox.Show("The country should only contain letters.");
+                    return;
+                }
+
                 if (street.Equals("") || Street.Text.Equals("") || city.Equals("") || City.Text.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
@@ -57,7 +80,7 @@ namespace ContactManager
                 }
                 if (postalCode.Length > 6 || PostalCode.Text.Length > 6)
                 {
-                    MessageBox.Show("The postal code should be 6 characters only.");
+                    MessageBox.Show("The postal code should be 6 characters only and it should be in this format: \"LNLNLN\" like \"J4W1W6\".");
                     return;
                 }
                 Regex rx = new Regex(@"^(?:[a-zA-Z]\d[a-zA-Z][ -]?\d[a-zA-Z]\d)$");
@@ -65,7 +88,7 @@ namespace ContactManager
 
                 if (!matchedString)
                 {
-                    MessageBox.Show("The postal code should be in this format \"ANA NAN\"");
+                    MessageBox.Show("The postal code should be in this format \"LNLNLN\" like \"J4W1W6\".");
                     return;
                 }
 
@@ -102,19 +125,7 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Address(Street,City,State,PostalCode,CreateDate,UpdateDate,Active,Type_Code,Contact_Id,Country) VALUES(@Street,@City,@State,@PostalCode,@CreateDate,@UpdateDate,@Active,@Type_Code,@Contact_Id,@Country)", con);
-                command.Parameters.AddWithValue("@Street", street);
-                command.Parameters.AddWithValue("@City", city);
-                command.Parameters.AddWithValue("@State", state);
-                command.Parameters.AddWithValue("@PostalCode", postalCode);
-                command.Parameters.AddWithValue("@CreateDate", currentTime);
-                command.Parameters.AddWithValue("@UpdateDate", currentTime);
-                command.Parameters.AddWithValue("@Active", true);
-                command.Parameters.AddWithValue("@Type_Code", typeCode);
-                command.Parameters.AddWithValue("@Contact_Id", contact_id);
-                command.Parameters.AddWithValue("@Country", country);
-                command.ExecuteNonQuery();
+                dB.addAddressToContact(contact_id, street, city, state, postalCode, currentTime, typeCode, country);
                 this.Close();
             }
         }

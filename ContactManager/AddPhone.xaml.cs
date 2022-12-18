@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContactManager.Database;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -27,6 +28,7 @@ namespace ContactManager
     {
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         int contact_id = 0;
+        DB dB = new DB();
 
         public AddPhone(int c_id)
         {
@@ -90,15 +92,7 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active,Contact_Id) VALUES(@phone,@typeCode,@createDate,@updateDate,@active,@contactId)", con);
-                command.Parameters.AddWithValue("@phone", phoneNumber);
-                command.Parameters.AddWithValue("@typeCode", typeCode);
-                command.Parameters.AddWithValue("@active", true);
-                command.Parameters.AddWithValue("@createDate", currentTime);
-                command.Parameters.AddWithValue("@updateDate", currentTime);
-                command.Parameters.AddWithValue("contactId", contact_id);
-                command.ExecuteNonQuery();
+                dB.AddPhoneToContact(contact_id, phoneNumber, typeCode, currentTime);
                 this.Close();
             }
         }

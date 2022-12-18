@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContactManager.Database;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace ContactManager
     {
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         int contact_id = 0;
+        DB dB = new DB();
+
         public AddEmail(int c_id)
         {
             InitializeComponent();
@@ -81,16 +84,8 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                con.Open();
-                 SqlCommand command = new SqlCommand("INSERT INTO Email(EmailAddress,CreateDate,UpdateDate,Active,Type_Code,Contact_Id) VALUES(@emailAddress,@createDate,@updateDate,@active,@typeCode,@contactId)", con);
-                 command.Parameters.AddWithValue("@emailAddress", email);
-                 command.Parameters.AddWithValue("@createDate", currentTime);
-                 command.Parameters.AddWithValue("@updateDate", currentTime);
-                 command.Parameters.AddWithValue("@active", true);
-                 command.Parameters.AddWithValue("@typeCode", typeCode);
-                 command.Parameters.AddWithValue("@contactId", contact_id);
-                 command.ExecuteNonQuery();
-                 this.Close();
+                dB.AddEmailToContact(contact_id, email,currentTime,typeCode);
+                this.Close();
 
             }
         }

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -161,6 +163,26 @@ namespace ContactManager.Database
             }
         }
 
+        public void addAddressToContact(int contact_id, string street, string city, string state, string postalCode, DateTime currentTime, char typeCode, string country)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO Address(Street,City,State,PostalCode,CreateDate,UpdateDate,Active,Type_Code,Contact_Id,Country) VALUES (@Street,@City,@State,@PostalCode,@CreateDate,@UpdateDate,@Active,@Type_Code,@Contact_Id,@Country);", con);
+                command.Parameters.AddWithValue("@Street", street);
+                command.Parameters.AddWithValue("@City", city);
+                command.Parameters.AddWithValue("@State", state);
+                command.Parameters.AddWithValue("@PostalCode", postalCode);
+                command.Parameters.AddWithValue("@CreateDate", currentTime);
+                command.Parameters.AddWithValue("@UpdateDate", currentTime);
+                command.Parameters.AddWithValue("@Active", true);
+                command.Parameters.AddWithValue("@Type_Code", typeCode);
+                command.Parameters.AddWithValue("@Contact_Id", contact_id);
+                command.Parameters.AddWithValue("@Country", country);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public void DeleteAddress(int addressId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -205,6 +227,22 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@Id", addressId);
                 command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddPhoneToContact(int contact_id, string phoneNumber, char typeCode, DateTime currentTime)
+        {
+            using(SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO Phone(Phone,Type_Code,CreateDate,UpdateDate,Active,Contact_Id) VALUES(@phone,@typeCode,@createDate,@updateDate,@active,@contactId)", con);
+                command.Parameters.AddWithValue("@phone", phoneNumber);
+                command.Parameters.AddWithValue("@typeCode", typeCode);
+                command.Parameters.AddWithValue("@active", true);
+                command.Parameters.AddWithValue("@createDate", currentTime);
+                command.Parameters.AddWithValue("@updateDate", currentTime);
+                command.Parameters.AddWithValue("contactId", contact_id);
                 command.ExecuteNonQuery();
             }
         }
@@ -289,6 +327,22 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@Id", emailId);
                 command.Parameters.AddWithValue("@EmailAddress", emailAddress);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddEmailToContact(int contact_id, string email, DateTime currentTime, char typeCode)
+        {
+            using(SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO Email(EmailAddress,CreateDate,UpdateDate,Active,Type_Code,Contact_Id) VALUES(@emailAddress,@createDate,@updateDate,@active,@typeCode,@contactId)", con);
+                command.Parameters.AddWithValue("@emailAddress", email);
+                command.Parameters.AddWithValue("@createDate", currentTime);
+                command.Parameters.AddWithValue("@updateDate", currentTime);
+                command.Parameters.AddWithValue("@active", true);
+                command.Parameters.AddWithValue("@typeCode", typeCode);
+                command.Parameters.AddWithValue("@contactId", contact_id);
                 command.ExecuteNonQuery();
             }
         }

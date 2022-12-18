@@ -123,17 +123,37 @@ namespace ContactManager
                 MessageBox.Show("The state should be 2 characters only.");
                 return;
             }
-            if (PostalCodeAddress.Length > 6 || pcBox.Text.Length > 6)
+            Regex rxState = new Regex(@"[0-9]");
+            bool matchedStringState = rxState.IsMatch(StateAddress);
+            bool matchedStringCity = rxState.IsMatch(CityAddress);
+            bool matchedStringCountry = rxState.IsMatch(CountryAddress);
+
+            if (matchedStringState)
             {
-                MessageBox.Show("The postal code should be 6 characters only.");
+                MessageBox.Show("The state should only contain letters.");
                 return;
             }
-            Regex rx = new Regex(@"^(?:[a-zA-Z]\d[a-zA-Z][ -]?\d[a-zA-Z]\d)$");
-            bool matchedString = rx.IsMatch(PostalCodeAddress);
-
-            if (!matchedString)
+            if (matchedStringCity)
             {
-                MessageBox.Show("The postal code should be in this format \"ANA NAN\"");
+                MessageBox.Show("The city should only contain letters.");
+                return;
+            }
+            if (matchedStringCountry)
+            {
+                MessageBox.Show("The country should only contain letters.");
+                return;
+            }
+            if (PostalCodeAddress.Length > 6 || pcBox.Text.Length > 6)
+            {
+                MessageBox.Show("The postal code should be 6 characters only and it should be in this format: \"LNLNLN\" like \"J4W1W6\".");
+                return;
+            }
+            Regex rxPostalCode = new Regex(@"^(?:[a-zA-Z]\d[a-zA-Z][ -]?\d[a-zA-Z]\d)$");
+            bool matchedStringPostalCode = rxPostalCode.IsMatch(PostalCodeAddress);
+
+            if (!matchedStringPostalCode)
+            {
+                MessageBox.Show("The postal code should be in this format \"LNLNLN\" like \"J4W1W6\".");
                 return;
             }
             if (CountryAddress.Length < 2 || countryBox.Text.Length < 2)
