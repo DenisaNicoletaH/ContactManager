@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Data.SqlClient;
 
 namespace ContactManager
 {
@@ -66,7 +68,56 @@ namespace ContactManager
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (PhoneNumberPhone.Equals("") || pNumber.Text.Equals("") || TypeCodePhone.Equals("") || tCode.Equals(""))
+            {
+                MessageBox.Show("One or more of the fields above is empty");
+                return;
+            }
+            if(PhoneNumberPhone.Length != 10 || pNumber.Text.Length != 10)
+            {
+                MessageBox.Show("Phone number should be 10 digits");
+                return;
+            }
+
+            Regex rx = new Regex(@"[a-z]+");
+            bool matchedString = rx.IsMatch(PhoneNumberPhone);
+            bool matchedBox = rx.IsMatch(pNumber.Text);
+
+            if (matchedBox && matchedString)
+            {
+                MessageBox.Show("Phone number should only contain numbers");
+                return;
+            }
+            string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
+
+            List<char> typeCodes = new List<char>();
+            using (SqlConnection con2 = new SqlConnection(connectionString))
+            {
+                con2.Open();
+                SqlCommand cm = new SqlCommand("select Code from Type", con2);
+                SqlDataReader sdr = cm.ExecuteReader();
+                while (sdr.Read())
+                {
+                    typeCodes.Add(sdr["Code"].ToString().ToCharArray()[0]);
+                }
+            }
+            char typeCode = tCode.Text.ToUpper().ToCharArray()[0];
+
+            bool isExist = false;
+            foreach (char i in typeCodes)
+            {
+                if (typeCode.Equals(i))
+                {
+                    isExist = true;
+                }
+            }
+            if (!isExist)
+            {
+                MessageBox.Show("Type code is not valid");
+                return;
+            }
             dB.UpdatePhone(phoneId, PhoneNumberPhone, TypeCodePhone);
+            this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
