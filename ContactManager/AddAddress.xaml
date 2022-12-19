@@ -9,13 +9,13 @@
     <Window.Resources>
         <Style x:Key="TextColor" TargetType="Label">
             <Setter Property="FontFamily" Value="Agency Fb" />
-
             <Setter Property="Foreground" Value="White"/>
 
 
         </Style>
 
         <Style x:Key="ButtonColor" TargetType="Button">
+            <Setter Property="FontFamily" Value="Agency Fb" />
             <Setter Property="Foreground" Value="White">
                 
             </Setter>
