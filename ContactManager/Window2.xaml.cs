@@ -24,7 +24,7 @@ namespace ContactManager
     public partial class Window2 : Window, INotifyPropertyChanged
     {
         DB dB = new DB();
-        int idOfContactToBeDeleted = 0;
+        int contactId = 0;
         private string firstName;
         private string lastName;
 
@@ -56,7 +56,7 @@ namespace ContactManager
             InitializeComponent();
             this.DataContext = this;
             var contact = dB.GetContact(id);
-            idOfContactToBeDeleted = id;
+            contactId = id;
             FirstName.Text = contact.FirstName;
             FirstNameContact = contact.FirstName;
             LastName.Text = contact.LastName;
@@ -88,12 +88,12 @@ namespace ContactManager
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.UpdateContact(idOfContactToBeDeleted, FirstNameContact, LastNameContact);
+            dB.UpdateContact(contactId, FirstNameContact, LastNameContact);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.DeleteContact(idOfContactToBeDeleted);
+            dB.DeleteContact(contactId);
             this.Close();
         }
 
@@ -101,7 +101,7 @@ namespace ContactManager
         {
             var address = addressDetails.SelectedItem as Address;
             var addressId = address.Id;
-            AddressDetails detailsWindow = new AddressDetails(addressId);
+            AddressDetails detailsWindow = new AddressDetails(addressId,contactId);
             detailsWindow.Show();
             detailsWindow.Focus();
             //this.Close();
@@ -111,7 +111,7 @@ namespace ContactManager
         {
             var phone = phoneDetails.SelectedItem as Phone;
             var phoneId = phone.Id;
-            PhoneDetails detailsWindow = new PhoneDetails(phoneId);
+            PhoneDetails detailsWindow = new PhoneDetails(contactId, phoneId);
             detailsWindow.Show();
             detailsWindow.Focus();
         }
@@ -119,7 +119,7 @@ namespace ContactManager
         {
             var email = emailDetails.SelectedItem as Email;
             var emailId = email.Id;
-            EmailDetails detailsWindow = new EmailDetails(emailId);
+            EmailDetails detailsWindow = new EmailDetails(contactId, emailId);
             detailsWindow.Show();
             detailsWindow.Focus();
             //this.Close();
@@ -127,7 +127,7 @@ namespace ContactManager
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)
         {
-            AddPhone detailsWindow = new AddPhone(idOfContactToBeDeleted);
+            AddPhone detailsWindow = new AddPhone(contactId);
             detailsWindow.Show();
             detailsWindow.Focus();
             //this.Close();
@@ -135,7 +135,7 @@ namespace ContactManager
 
         private void AddAddress_Click(object sender, RoutedEventArgs e)
         {
-            AddAddress addAddressWindow = new AddAddress(idOfContactToBeDeleted);
+            AddAddress addAddressWindow = new AddAddress(contactId);
             addAddressWindow.Show();
             addAddressWindow.Focus();
 
@@ -143,7 +143,7 @@ namespace ContactManager
 
         private void AddEmail_Click(object sender, RoutedEventArgs e)
         {
-            AddEmail addEmailWindow = new AddEmail(idOfContactToBeDeleted);
+            AddEmail addEmailWindow = new AddEmail(contactId);
             addEmailWindow.Show();
             addEmailWindow.Focus();
         }

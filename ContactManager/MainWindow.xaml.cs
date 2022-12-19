@@ -38,7 +38,7 @@ namespace ContactManager
             // var phoneNumbers = dB.getPhoneForContact();
             foreach (var contact in contacts)
             {
-                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate=contact.CreatedDate, UpdatedDate=contact.UpdatedDate, /*MiddleName = contact.MiddleName */ });
+                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate=contact.CreatedDate, UpdatedDate=contact.UpdatedDate, MiddleName = contact.MiddleName });
 
             }
            

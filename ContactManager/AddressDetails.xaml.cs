@@ -33,6 +33,7 @@ namespace ContactManager
         private string postalCode;
         private string typeCode;
         int addressId = 0;
+        int contactId = 0;
         public string StreetAddress
         {
             get { return street; }
@@ -77,11 +78,11 @@ namespace ContactManager
                 PropertyChanged(this, new PropertyChangedEventArgs(properyChange));
             }
         }
-        public AddressDetails(int id)
+        public AddressDetails(int aId, int cId)
         {
             InitializeComponent();
             this.DataContext = this;
-            var address = dB.GetAddress(id);
+            var address = dB.GetAddress(aId);
             streetBox.Text = address.Street;
             StreetAddress = address.Street;
             cityBox.Text = address.City;
@@ -94,7 +95,8 @@ namespace ContactManager
             PostalCodeAddress = address.PostalCode;
             tcBox.Text = address.TypeCode;
             TypeCodeAddress = address.TypeCode;
-            addressId = id;
+            addressId = aId;
+            contactId = cId;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -190,13 +192,13 @@ namespace ContactManager
             }
 
             DateTime currentTime = DateTime.Now;
-            dB.UpdateAddress(addressId, StreetAddress, CityAddress, StateAddress, CountryAddress, PostalCodeAddress, TypeCodeAddress);
+            dB.UpdateAddress(contactId, addressId, StreetAddress, CityAddress, StateAddress, CountryAddress, PostalCodeAddress, TypeCodeAddress);
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.DeleteAddress(addressId);
+            dB.DeleteAddress(contactId,addressId);
             this.Close();
         }
     }

@@ -29,6 +29,7 @@ namespace ContactManager
         string emailAddress;
         string typeCode;
         int emailId;
+        int contactId;
         public string EmailAddressEmail
         {
             get { return emailAddress; }
@@ -48,16 +49,17 @@ namespace ContactManager
                 PropertyChanged(this, new PropertyChangedEventArgs(properyChange));
             }
         }
-        public EmailDetails(int id)
+        public EmailDetails(int cId, int eId)
         {
             InitializeComponent();
             this.DataContext = this;
-            var email = dB.GetEmail(id);
+            var email = dB.GetEmail(eId);
             eAddress.Text = email.EmailAddress;
             EmailAddressEmail = email.EmailAddress;
             tCode.Text = email.TypeCode;
             TypeCodeEmail = email.TypeCode;
-            emailId = id;
+            emailId = eId;
+            contactId = cId;
         }
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -110,13 +112,13 @@ namespace ContactManager
                 MessageBox.Show("Type code is not valid");
                 return;
             }
-            dB.UpdateEmail(emailId, EmailAddressEmail, TypeCodeEmail);
+            dB.UpdateEmail(contactId, emailId, EmailAddressEmail, TypeCodeEmail);
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.DeleteEmail(emailId);
+            dB.DeleteEmail(contactId, emailId);
             this.Close();
         }
     }

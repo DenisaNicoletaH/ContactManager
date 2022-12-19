@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,6 +43,7 @@ namespace ContactManager.Database
                     contact.LastName = sdr["LastName"].ToString();
                     contact.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
                     contact.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
+                    contact.MiddleName = sdr["MiddleName"].ToString();
                     contacts.Add(contact);
                 }
                 sdr.Close();
@@ -151,7 +153,7 @@ namespace ContactManager.Database
             return addresses;
         }
 
-        public void UpdateAddress(int addressId, string street, string city, string state, string country, string postalCode, string typeCode)
+        public void UpdateAddress(int contactId, int addressId, string street, string city, string state, string country, string postalCode, string typeCode)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -166,9 +168,18 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
                 command.ExecuteNonQuery();
             }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime currentTime = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
+                command.ExecuteNonQuery();
+            }
         }
 
-        public void addAddressToContact(int contact_id, string street, string city, string state, string postalCode, DateTime currentTime, char typeCode, string country)
+        public void addAddressToContact(int contactId, string street, string city, string state, string postalCode, DateTime currentTime, char typeCode, string country)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -182,19 +193,37 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@UpdateDate", currentTime);
                 command.Parameters.AddWithValue("@Active", true);
                 command.Parameters.AddWithValue("@Type_Code", typeCode);
-                command.Parameters.AddWithValue("@Contact_Id", contact_id);
+                command.Parameters.AddWithValue("@Contact_Id", contactId);
                 command.Parameters.AddWithValue("@Country", country);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }
 
-        public void DeleteAddress(int addressId)
+        public void DeleteAddress(int contactId, int addressId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Address SET Active = 0 WHERE Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", addressId);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }
@@ -223,7 +252,7 @@ namespace ContactManager.Database
             return phonesA;
             
         }
-        public void UpdatePhone(int addressId, string phoneNumber, string typeCode)
+        public void UpdatePhone(int contactId, int addressId, string phoneNumber, string typeCode)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -234,9 +263,18 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
                 command.ExecuteNonQuery();
             }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
+                command.ExecuteNonQuery();
+            }
         }
 
-        public void AddPhoneToContact(int contact_id, string phoneNumber, char typeCode, DateTime currentTime)
+        public void AddPhoneToContact(int contactId, string phoneNumber, char typeCode, DateTime currentTime)
         {
             using(SqlConnection con = new SqlConnection(connectionString))
             {
@@ -247,17 +285,35 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@active", true);
                 command.Parameters.AddWithValue("@createDate", currentTime);
                 command.Parameters.AddWithValue("@updateDate", currentTime);
-                command.Parameters.AddWithValue("contactId", contact_id);
+                command.Parameters.AddWithValue("contactId", contactId);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }
-        public void DeletePhone(int phoneId)
+        public void DeletePhone(int contactId, int phoneId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Phone SET Active = 0 WHERE Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", phoneId);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }
@@ -323,7 +379,7 @@ namespace ContactManager.Database
             return email;
         }
 
-        public void UpdateEmail(int emailId, string emailAddress, string typeCode)
+        public void UpdateEmail(int contactId, int emailId, string emailAddress, string typeCode)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -334,9 +390,18 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
                 command.ExecuteNonQuery();
             }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
+                command.ExecuteNonQuery();
+            }
         }
 
-        public void AddEmailToContact(int contact_id, string email, DateTime currentTime, char typeCode)
+        public void AddEmailToContact(int contactId, string email, DateTime currentTime, char typeCode)
         {
             using(SqlConnection con = new SqlConnection(connectionString))
             {
@@ -347,17 +412,35 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@updateDate", currentTime);
                 command.Parameters.AddWithValue("@active", true);
                 command.Parameters.AddWithValue("@typeCode", typeCode);
-                command.Parameters.AddWithValue("@contactId", contact_id);
+                command.Parameters.AddWithValue("@contactId", contactId);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }
-        public void DeleteEmail(int emailId)
+        public void DeleteEmail(int contactId, int emailId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Email SET Active = 0 WHERE Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", emailId);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                DateTime time = DateTime.Now;
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", time);
                 command.ExecuteNonQuery();
             }
         }

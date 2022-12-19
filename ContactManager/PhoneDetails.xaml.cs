@@ -29,6 +29,7 @@ namespace ContactManager
         string phoneNumber;
         string typeCode;
         int phoneId;
+        int contactId;
         public string PhoneNumberPhone
         {
             get { return phoneNumber; }
@@ -48,16 +49,17 @@ namespace ContactManager
                 PropertyChanged(this, new PropertyChangedEventArgs(properyChange));
             }
         }
-        public PhoneDetails(int id)
+        public PhoneDetails(int cId, int pId)
         {
             InitializeComponent();
             this.DataContext = this;
-            var phone = dB.GetPhone(id);
+            var phone = dB.GetPhone(pId);
             pNumber.Text = phone.PhoneNumber;
             PhoneNumberPhone = phone.PhoneNumber;
             tCode.Text = phone.TypeCode;
             TypeCodePhone = phone.TypeCode;
-            phoneId = id;
+            phoneId = pId;
+            contactId = cId;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -116,13 +118,13 @@ namespace ContactManager
                 MessageBox.Show("Type code is not valid");
                 return;
             }
-            dB.UpdatePhone(phoneId, PhoneNumberPhone, TypeCodePhone);
+            dB.UpdatePhone(contactId, phoneId, PhoneNumberPhone, TypeCodePhone);
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.DeletePhone(phoneId);
+            dB.DeletePhone(contactId, phoneId);
             this.Close();
         }
     }
