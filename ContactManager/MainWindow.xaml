@@ -38,9 +38,11 @@
               SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick" Width="800">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="100"/>
-                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="350"/>
-                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="400"/>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
+                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
+                        <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}"/>
+                        <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
