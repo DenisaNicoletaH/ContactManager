@@ -3,6 +3,7 @@ using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
@@ -25,14 +26,14 @@ namespace ContactManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+              DB dB = new DB();
         public MainWindow()
         {
             //this shows the window
             InitializeComponent();
            
 
-            DB dB = new DB();
+      
             var contacts = dB.GetContacts();
             // var phoneNumbers = dB.getPhoneForContact();
             foreach (var contact in contacts)
@@ -61,10 +62,48 @@ namespace ContactManager
             detailsWindow.Focus();
             //this.Close();
         }
-    
+
+        private void AtoZ_Click(object sender, RoutedEventArgs e)
+        {
+
+            List<Contact> contacts = dB.GetContacts();
+            if(AtoZ.IsPressed == true)
+            {
+
+                var sortedList = contacts.OrderBy(x => x.FirstName).ToList();
+            }
+           
+
+        }
+
+        private void ZtoA_Click(object sender, RoutedEventArgs e)
+        {
+            List<Contact> contacts = dB.GetContacts();
+
+            if (ZtoA.IsPressed == true)
+            {
+
+                var sortedList = contacts.OrderBy(x => x.FirstName).Reverse().ToList();
+            }
+        }
+
+        private void IdCheckbox(object sender, RoutedEventArgs e)
+        {
+            List<Contact> contacts = dB.GetContacts();
+            if (IdOrder.IsChecked == true)
+            {
+                var sortedId=contacts.OrderBy(x => x.Id).ToList();
+            }
+            else
+            {
+                var sortedId=contacts.OrderBy(x => x.Id).Reverse().ToList();
+            }
 
 
-      
+            {
+
+            }
+        }
     }
 
     

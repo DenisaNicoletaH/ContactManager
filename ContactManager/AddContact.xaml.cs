@@ -38,30 +38,34 @@ namespace ContactManager
                 string fName = tb1.Text;
                 string lName = tb2.Text;
                 string mName = tb3.Text;
-                string active = trueCheckbox.IsChecked.ToString();
+              //  string active = trueCheckbox.IsChecked.ToString();
 
                 string iId = tb5.Text;
                 int imageId=-1;
                 ArrayList imageIds = new ArrayList();
 
+                /*
                 if (fName.Equals("") || lName.Equals("") || active.Equals("") ||
                     mName.Equals("") || iId.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
-
+                */
+               
                 if (mName.Length > 1)
                 {
                     MessageBox.Show("Middle name can only be one character");
                     return;
                 }
 
-                if (!active.ToLower().Equals("true") && !active.ToLower().Equals("false"))
+                /*
+               if (!active.ToLower().Equals("true") && !active.ToLower().Equals("false"))
                 {
                     MessageBox.Show("Active field is not valid! Please enter true or false");
                     return;
                 }
+                */
 
                 bool validId = Int32.TryParse(iId,out imageId);
                 if (!validId || imageId<=0)
@@ -100,7 +104,7 @@ namespace ContactManager
                 command.Parameters.AddWithValue("@firstName",fName);
                 command.Parameters.AddWithValue("@lastName", lName);
                 command.Parameters.AddWithValue("@middleName", mName);
-                command.Parameters.AddWithValue("@active", active);
+                command.Parameters.AddWithValue("@active", true);
                 command.Parameters.AddWithValue("@imageId", iId);
                 command.Parameters.AddWithValue("@createDate", currentTime);
                 command.Parameters.AddWithValue("@updateDate", currentTime);
@@ -120,14 +124,7 @@ namespace ContactManager
         }
 
       
-        //???
-        private void trueCheckbox_Checked(object sender, RoutedEventArgs e)
-        {
-            if(trueCheckbox.IsChecked == true)
-            {
-                
-            }
-
-        }
+       
+        
     }
 }
