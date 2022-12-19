@@ -86,6 +86,7 @@ namespace ContactManager
 
                 var sortedList = contacts.OrderBy(x => x.FirstName).Reverse().ToList();
             }
+            
         }
 
         private void IdCheckbox(object sender, RoutedEventArgs e)

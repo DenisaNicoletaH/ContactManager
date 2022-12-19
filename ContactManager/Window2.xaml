@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
         Title="Window2" Height="650" Width="660">
+   
+    
+    <Window.Resources></Window.Resources>
+    
+    
+    
+    
+    
+    
     <Grid Margin="0,0,0,-22">
         <Label Content="Contact Details" HorizontalAlignment="Left" Margin="238,10,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="170"/>
         <TextBox x:Name="FirstName" IsReadOnly="True" Text="{Binding Path=FirstNameContact}" HorizontalAlignment="Left" Margin="90,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>

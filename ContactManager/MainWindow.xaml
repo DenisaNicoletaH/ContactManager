@@ -8,14 +8,16 @@
         Title="MainWindow" MinHeight="450" MaxHeight="450" MinWidth="800" MaxWidth="800" Background="SteelBlue">
     <Window.Resources>
     <Style x:Key="ButtonKeys" TargetType="Button">
-            <Setter Property="Background" Value="DarkGray"/>
+     <Setter Property="FontFamily" Value="Agency Fb" />
+        <Setter Property="Background" Value="DarkOrange"/>
+
         </Style>
 
         <Style x:Key="TitleStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="White">
-                
-                
-            </Setter>
+            <Setter Property="FontFamily" Value="Agency Fb" />
+            <Setter Property="Foreground" Value="White"/>
+
+
         </Style>
         
     
@@ -32,38 +34,38 @@
         
         
         <Label Content="Contact Manager" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24px" Style="{StaticResource TitleStyle}"/>
-        <ScrollViewer>
+        <ScrollViewer Margin="0,0,0,-79" Grid.RowSpan="2">
 
             <ListView x:Name="listView" Grid.Column="1"
-              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick" Width="800">
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick" Width="800" Height="373">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
-                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Middle Name" DisplayMemberBinding="{Binding MiddleName}"/>
-                        <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}"/>
-                        <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}"/>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="170"/>
+                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="170"/>
+                        <GridViewColumn Header="Middle Name" DisplayMemberBinding="{Binding MiddleName}" Width="100"/>
+                        <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="150"/>
+                        <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}"  Width="140"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </ScrollViewer>
-        <Button x:Name="AddContact" Click="AddContact_Click" Margin="64,13,656,250" FontSize="100px" Style="{StaticResource ButtonKeys}">
+        <Button x:Name="AddContact" Click="AddContact_Click" Margin="64,13,656,250" FontSize="100px" Style="{StaticResource ButtonKeys}" >
             <Viewbox>
-                <Label>Add Contact</Label>
+                <Label Content="Add Contact" Style="{StaticResource TitleStyle}"/>
             </Viewbox>
         </Button>
-        <Button x:Name="AtoZ" Click="AtoZ_Click" Margin="529,23,212,249" FontSize="100px" Style="{StaticResource ButtonKeys}">
+        <Button x:Name="AtoZ" Click="AtoZ_Click" Margin="529,23,212,249" FontSize="100px" Style="{StaticResource ButtonKeys}" >
             <Viewbox>
-                <Label Content="A --> Z"/>
+                <Label Content="A --> Z" Style="{StaticResource TitleStyle}"/>
             </Viewbox>
         </Button>
         <Button x:Name="ZtoA" Click="ZtoA_Click" Margin="593,23,143,249" FontSize="100px" Style="{StaticResource ButtonKeys}">
             <Viewbox>
-                <Label Content="Z --> A"/>
+                <Label Content="Z --> A" RenderTransformOrigin="0.055,0.055" Style="{StaticResource TitleStyle}"/>
             </Viewbox>
         </Button>
-        <CheckBox x:Name="IdOrder" Content="Id Order" Checked="IdCheckbox"  HorizontalAlignment="Left" Margin="670,23,0,0" VerticalAlignment="Top" Height="18" RenderTransformOrigin="0.5,0.5" Width="94" >
+        <CheckBox x:Name="IdOrder" Content="Id Order" Checked="IdCheckbox"  HorizontalAlignment="Left" Margin="670,23,0,0" VerticalAlignment="Top" Height="18" RenderTransformOrigin="0.5,0.5" Width="94" FontFamily="Bahnschrift " Foreground="White" >
 
             <CheckBox.RenderTransform>
                 <TransformGroup>

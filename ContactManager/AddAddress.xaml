@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="AddAddress" Height="450" Width="800">
+        Title="AddAddress" Height="450" Width="800" Background="SteelBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"/>
@@ -23,7 +23,7 @@
 
         <Label Grid.Row="0" Margin="29,21,19,10">Add Street:</Label>
         <Label Grid.Row="1" Margin="29,14,19,10">Add City:</Label>
-        <Label Grid.Row="2" Margin="29,22,19,10" Content="Add State/Province:"/>
+        <Label Grid.Row="2" Margin="29,18,19,14" Content="Add State/Province:"/>
         <Label Grid.Row="4" Margin="29,13,19,9" Content="Add Country:"/>
         <Label Grid.Row="3" Margin="29,10,19,12" Content="Add Postal Code:"/>
         <Label Grid.Row="5" Margin="24,13,24,9" Content="Add TypeCode:"/>
@@ -35,12 +35,12 @@
         <TextBox x:Name="Country"  Grid.Column="1" Grid.Row="4" Margin="0,13,10,8"/>
         <TextBox x:Name="Type"  Grid.Column="1" Grid.Row="5" Margin="0,11,10,10"/>
 
-        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="6" Margin="10,18,533,10" Grid.ColumnSpan="2">
+        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Row="6" Margin="80,16,463,12" Grid.ColumnSpan="2" Background="DarkOrange">
             <Viewbox>
                 <Label>Cancel</Label>
             </Viewbox>
         </Button>
-        <Button x:Name="Save" Click="Save_Click" Grid.Row="6" Grid.Column="1" Margin="91,18,76,10">
+        <Button x:Name="Save" Click="Save_Click" Grid.Row="6" Grid.Column="1" Margin="182,18,80,10" Background="DarkOrange" >
             <Viewbox>
                 <Label>Save</Label>
             </Viewbox>
