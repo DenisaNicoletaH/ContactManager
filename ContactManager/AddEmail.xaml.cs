@@ -32,7 +32,13 @@ namespace ContactManager
             contactId = c_id;
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
+            this.Close();
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {

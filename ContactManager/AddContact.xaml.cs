@@ -29,7 +29,13 @@ namespace ContactManager
             InitializeComponent();
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        { 
+            MainWindow contactsScreen = new MainWindow();
+            contactsScreen.Show();
+            contactsScreen.Focus();
+            this.Close();
+        }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
