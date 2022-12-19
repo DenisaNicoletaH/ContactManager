@@ -53,6 +53,7 @@ namespace ContactManager
             Window2 detailsWindow = new Window2(contactId);
             detailsWindow.Show();
             detailsWindow.Focus();
+            this.Close();
         }
 
         private void AddContact_Click(object sender, RoutedEventArgs e)
@@ -60,7 +61,7 @@ namespace ContactManager
             AddContact detailsWindow = new AddContact();
             detailsWindow.Show();
             detailsWindow.Focus();
-            //this.Close();
+            this.Close();
         }
 
         private void AtoZ_Click(object sender, RoutedEventArgs e)

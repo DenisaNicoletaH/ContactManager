@@ -71,6 +71,7 @@ namespace ContactManager
             LastNameContact = contact.LastName;
             MiddleName.Text = contact.MiddleName;
             MiddleNameContact = contact.MiddleName;
+
             var addresses = dB.GetAddresses(id);
             foreach (var address in addresses)
             {
@@ -98,12 +99,24 @@ namespace ContactManager
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (MiddleNameContact.Length > 1)
+            {
+                MessageBox.Show("Middle name cannot be more than one character");
+                return;
+            }
             dB.UpdateContact(contactId, FirstNameContact, LastNameContact, MiddleNameContact);
+            MainWindow contactsScreen = new MainWindow();
+            contactsScreen.Show();
+            contactsScreen.Focus();
+            this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             dB.DeleteContact(contactId);
+            MainWindow contactsScreen = new MainWindow();
+            contactsScreen.Show();
+            contactsScreen.Focus();
             this.Close();
         }
 
@@ -114,7 +127,7 @@ namespace ContactManager
             AddressDetails detailsWindow = new AddressDetails(addressId,contactId);
             detailsWindow.Show();
             detailsWindow.Focus();
-            //this.Close();
+            this.Close();
         }
 
         private void phoneDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -124,6 +137,7 @@ namespace ContactManager
             PhoneDetails detailsWindow = new PhoneDetails(contactId, phoneId);
             detailsWindow.Show();
             detailsWindow.Focus();
+            this.Close();
         }
         private void emailDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -132,7 +146,7 @@ namespace ContactManager
             EmailDetails detailsWindow = new EmailDetails(contactId, emailId);
             detailsWindow.Show();
             detailsWindow.Focus();
-            //this.Close();
+            this.Close();
         }
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)
@@ -140,7 +154,7 @@ namespace ContactManager
             AddPhone detailsWindow = new AddPhone(contactId);
             detailsWindow.Show();
             detailsWindow.Focus();
-            //this.Close();
+            this.Close();
         }
 
         private void AddAddress_Click(object sender, RoutedEventArgs e)
@@ -148,7 +162,7 @@ namespace ContactManager
             AddAddress addAddressWindow = new AddAddress(contactId);
             addAddressWindow.Show();
             addAddressWindow.Focus();
-
+            this.Close();
         }
 
         private void AddEmail_Click(object sender, RoutedEventArgs e)
@@ -156,6 +170,7 @@ namespace ContactManager
             AddEmail addEmailWindow = new AddEmail(contactId);
             addEmailWindow.Show();
             addEmailWindow.Focus();
+            this.Close();
         }
     }
 }

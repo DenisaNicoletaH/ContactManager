@@ -96,12 +96,6 @@ namespace ContactManager.Database
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                if (middleName.Length > 1)
-                {
-                    MessageBox.Show("Middle name cannot be more than one character");
-                    return;
-                }
-
                 DateTime currentTime = DateTime.Now;
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);

@@ -25,13 +25,13 @@ namespace ContactManager
     {
        
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
-        int contact_id = 0;
+        int contactId = 0;
         DB dB = new DB();
 
         public AddAddress(int c_id)
         {
             InitializeComponent();
-            contact_id = c_id;
+            contactId = c_id;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
@@ -68,7 +68,7 @@ namespace ContactManager
                     return;
                 }
 
-                if (street.Equals("") || Street.Text.Equals("") || city.Equals("") || City.Text.Equals(""))
+                if (street.Equals("") || Street.Text.Equals("") || city.Equals("") || City.Text.Equals("")||Type.Text.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
@@ -97,6 +97,7 @@ namespace ContactManager
                     MessageBox.Show("The country cannot be less than 2 characters.");
                     return;
                 }
+
                 char typeCode = Type.Text.ToUpper().ToCharArray()[0];
 
                 using (SqlConnection con2 = new SqlConnection(connectionString))
@@ -125,7 +126,10 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                dB.AddAddress(contact_id, street, city, state, postalCode, currentTime, typeCode, country);
+                dB.AddAddress(contactId, street, city, state, postalCode, currentTime, typeCode, country);
+                Window2 contactsScreen = new Window2(contactId);
+                contactsScreen.Show();
+                contactsScreen.Focus();
                 this.Close();
             }
         }

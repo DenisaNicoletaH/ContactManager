@@ -85,8 +85,10 @@ namespace ContactManager
 
                 DateTime currentTime = DateTime.Now;
                 dB.AddEmail(contactId, email,currentTime,typeCode);
+                Window2 contactDetails = new Window2(contactId);
+                contactDetails.Show();
+                contactDetails.Focus();
                 this.Close();
-
             }
         }
     }

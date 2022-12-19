@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Collections;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using ContactManager.Database.Entities;
 
 namespace ContactManager
 {
@@ -102,6 +103,9 @@ namespace ContactManager
                 command.Parameters.AddWithValue("@createDate", currentTime);
                 command.Parameters.AddWithValue("@updateDate", currentTime);
                 command.ExecuteNonQuery();
+                MainWindow contactsScreen = new MainWindow();
+                contactsScreen.Show();
+                contactsScreen.Focus();
                 this.Close();
             }
         }

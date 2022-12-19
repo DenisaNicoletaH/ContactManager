@@ -1,4 +1,5 @@
 ﻿using ContactManager.Database;
+using ContactManager.Database.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,13 +28,13 @@ namespace ContactManager
     public partial class AddPhone : Window
     {
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
-        int contact_id = 0;
+        int contactId = 0;
         DB dB = new DB();
 
         public AddPhone(int c_id)
         {
             InitializeComponent();
-            contact_id = c_id;
+            contactId = c_id;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) => Close();
@@ -92,7 +93,10 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                dB.AddPhone(contact_id, phoneNumber, typeCode, currentTime);
+                dB.AddPhone(contactId, phoneNumber, typeCode, currentTime);
+                Window2 contactDetails = new Window2(contactId);
+                contactDetails.Show();
+                contactDetails.Focus();
                 this.Close();
             }
         }

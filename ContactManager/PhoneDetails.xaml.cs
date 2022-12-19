@@ -119,12 +119,18 @@ namespace ContactManager
                 return;
             }
             dB.UpdatePhone(contactId, phoneId, PhoneNumberPhone, TypeCodePhone);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             dB.DeletePhone(contactId, phoneId);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
     }

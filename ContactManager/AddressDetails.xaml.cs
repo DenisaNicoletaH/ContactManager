@@ -193,12 +193,18 @@ namespace ContactManager
 
             DateTime currentTime = DateTime.Now;
             dB.UpdateAddress(contactId, addressId, StreetAddress, CityAddress, StateAddress, CountryAddress, PostalCodeAddress, TypeCodeAddress);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             dB.DeleteAddress(contactId,addressId);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
     }

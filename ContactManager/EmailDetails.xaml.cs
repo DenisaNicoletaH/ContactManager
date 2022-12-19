@@ -113,12 +113,18 @@ namespace ContactManager
                 return;
             }
             dB.UpdateEmail(contactId, emailId, EmailAddressEmail, TypeCodeEmail);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             dB.DeleteEmail(contactId, emailId);
+            Window2 contactDetails = new Window2(contactId);
+            contactDetails.Show();
+            contactDetails.Focus();
             this.Close();
         }
     }
