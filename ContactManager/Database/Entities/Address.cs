@@ -15,8 +15,8 @@ namespace ContactManager.Database.Entities
         public string Country { get; set; }
         public string PostalCode { get; set; }
         public string TypeCode { get; set; }
-        //public string CreatedDate { get; set; }
-        //public string UpdatedDate { get; set; }
+        public string CreatedDate { get; set; }
+        public string UpdatedDate { get; set; }
 
     }
 }

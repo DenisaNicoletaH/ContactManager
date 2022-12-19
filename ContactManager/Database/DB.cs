@@ -129,13 +129,15 @@ namespace ContactManager.Database
                     address.Country = sdr["Country"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
                     address.TypeCode = sdr["Type_Code"].ToString();
+                    address.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    address.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                 }
                 sdr.Close();
             }
             return address;
         }
 
-        public List<Address> GetAddressesForContact(int contactId)
+        public List<Address> GetAddresses(int contactId)
         {
             List<Address> addresses = new List<Address>();
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -154,6 +156,8 @@ namespace ContactManager.Database
                     address.Country = sdr["Country"].ToString();
                     address.PostalCode = sdr["PostalCode"].ToString();
                     address.TypeCode = sdr["Type_Code"].ToString();
+                    address.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    address.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                     addresses.Add(address);
                 }
                 sdr.Close();
@@ -163,10 +167,11 @@ namespace ContactManager.Database
 
         public void UpdateAddress(int contactId, int addressId, string street, string city, string state, string country, string postalCode, string typeCode)
         {
+            DateTime currentTime = DateTime.Now;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Address SET Street=@Street, City=@City, State=@State, Country=@Country, PostalCode=@PostalCode, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Address SET Street=@Street, City=@City, State=@State, Country=@Country, PostalCode=@PostalCode, Type_Code=@TypeCode, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", addressId);
                 command.Parameters.AddWithValue("@Street", street);
                 command.Parameters.AddWithValue("@City", city);
@@ -174,11 +179,11 @@ namespace ContactManager.Database
                 command.Parameters.AddWithValue("@Country", country);
                 command.Parameters.AddWithValue("@PostalCode", postalCode);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                DateTime currentTime = DateTime.Now;
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
@@ -187,7 +192,7 @@ namespace ContactManager.Database
             }
         }
 
-        public void addAddressToContact(int contactId, string street, string city, string state, string postalCode, DateTime currentTime, char typeCode, string country)
+        public void AddAddress(int contactId, string street, string city, string state, string postalCode, DateTime currentTime, char typeCode, string country)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -236,14 +241,14 @@ namespace ContactManager.Database
             }
         }
 
-        public List<Phone> getPhonesForContact(int contact_id)
+        public List<Phone> GetPhones(int contactId)
         {
            List <Phone> phonesA = new List<Phone>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("SELECT * FROM Phone WHERE Contact_Id=@Contact_Id AND Active = 1", con);
-                command.Parameters.AddWithValue("@Contact_Id", contact_id);
+                command.Parameters.AddWithValue("@Contact_Id", contactId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {

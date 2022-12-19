@@ -70,10 +70,10 @@ namespace ContactManager
             LastNameContact = contact.LastName;
             MiddleName.Text = contact.MiddleName;
             MiddleNameContact = contact.MiddleName;
-            var addresses = dB.GetAddressesForContact(id);
+            var addresses = dB.GetAddresses(id);
             foreach (var address in addresses)
             {
-                this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, Country = address.Country /*PostalCode=address.PostalCode*/ });
+                this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, Country = address.Country, CreatedDate=address.CreatedDate, UpdatedDate=address.UpdatedDate, PostalCode=address.PostalCode, TypeCode=address.TypeCode });
             }
 
             var emails = dB.getEmailsForContact(id);
@@ -82,7 +82,7 @@ namespace ContactManager
                 this.emailDetails.Items.Add(new Email { Id = email.Id, EmailAddress = email.EmailAddress });
             }
 
-            var phones = dB.getPhonesForContact(id);
+            var phones = dB.GetPhones(id);
             foreach (var phone in phones)
             {
                 this.phoneDetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode });

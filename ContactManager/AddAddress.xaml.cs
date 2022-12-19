@@ -125,7 +125,7 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                dB.addAddressToContact(contact_id, street, city, state, postalCode, currentTime, typeCode, country);
+                dB.AddAddress(contact_id, street, city, state, postalCode, currentTime, typeCode, country);
                 this.Close();
             }
         }

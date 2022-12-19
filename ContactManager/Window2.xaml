@@ -24,7 +24,10 @@
                     <GridViewColumn Header="Street" DisplayMemberBinding="{Binding Street}" Width="100"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="80"/>
                     <GridViewColumn Header="State/Province" DisplayMemberBinding="{Binding State}" Width="100"/>
+                    <GridViewColumn Header="Postal Code" DisplayMemberBinding="{Binding PostalCode}" Width="150"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" Width="150"/>
+                    <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="100"/>
+                    <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
