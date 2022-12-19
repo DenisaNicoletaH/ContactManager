@@ -76,7 +76,7 @@ namespace ContactManager
                 this.addressDetails.Items.Add(new Address { Id = address.Id, Street = address.Street, City = address.City, State = address.State, Country = address.Country, CreatedDate=address.CreatedDate, UpdatedDate=address.UpdatedDate, PostalCode=address.PostalCode, TypeCode=address.TypeCode });
             }
 
-            var emails = dB.getEmailsForContact(id);
+            var emails = dB.GetEmails(id);
             foreach(var email in emails)
             {
                 this.emailDetails.Items.Add(new Email { Id = email.Id, EmailAddress = email.EmailAddress });
@@ -85,7 +85,7 @@ namespace ContactManager
             var phones = dB.GetPhones(id);
             foreach (var phone in phones)
             {
-                this.phoneDetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode });
+                this.phoneDetails.Items.Add(new Phone { Id = phone.Id, PhoneNumber = phone.PhoneNumber, TypeCode=phone.TypeCode, CreatedDate=phone.CreatedDate, UpdatedDate=phone.UpdatedDate });
             }
         }
     

@@ -6,6 +6,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 using System.Text;
@@ -256,9 +257,9 @@ namespace ContactManager.Database
                     phone.Id = (int)sdr["Id"];
                     phone.PhoneNumber = sdr["Phone"].ToString();
                     phone.TypeCode = sdr["Type_Code"].ToString();
+                    phone.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    phone.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                     phonesA.Add(phone);
-
-
                 }
                 sdr.Close();
             }
@@ -267,27 +268,28 @@ namespace ContactManager.Database
         }
         public void UpdatePhone(int contactId, int addressId, string phoneNumber, string typeCode)
         {
+            DateTime currentTime = DateTime.Now;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Phone SET Phone=@PhoneNumber, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Phone SET Phone=@PhoneNumber, Type_Code=@TypeCode, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", addressId);
                 command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                DateTime time = DateTime.Now;
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
-                command.Parameters.AddWithValue("@UpdatedDate", time);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
         }
 
-        public void AddPhoneToContact(int contactId, string phoneNumber, char typeCode, DateTime currentTime)
+        public void AddPhone(int contactId, string phoneNumber, char typeCode, DateTime currentTime)
         {
             using(SqlConnection con = new SqlConnection(connectionString))
             {
@@ -345,13 +347,15 @@ namespace ContactManager.Database
                     phone.Id = (int)sdr["Id"];
                     phone.PhoneNumber = sdr["Phone"].ToString();
                     phone.TypeCode = sdr["Type_Code"].ToString();
+                    phone.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    phone.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                 }
                 sdr.Close();
             }
             return phone;
         }
 
-        public List<Email> getEmailsForContact(int contact_id)
+        public List<Email> GetEmails(int contact_id)
         {
             List<Email> emails = new List<Email>();
             using (SqlConnection con = new SqlConnection(connectionString))

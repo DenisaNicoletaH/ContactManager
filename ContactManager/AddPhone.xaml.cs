@@ -44,7 +44,7 @@ namespace ContactManager
                 string phoneNumber = phoneBox.Text;
                 List<char> typeCodes = new List<char>();
 
-                if (phoneNumber.Equals("") || phoneBox.Text.Equals(""))
+                if (phoneNumber.Equals("") || tcBox.Text.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
@@ -92,7 +92,7 @@ namespace ContactManager
                 }
 
                 DateTime currentTime = DateTime.Now;
-                dB.AddPhoneToContact(contact_id, phoneNumber, typeCode, currentTime);
+                dB.AddPhone(contact_id, phoneNumber, typeCode, currentTime);
                 this.Close();
             }
         }

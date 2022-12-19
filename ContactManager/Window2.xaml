@@ -49,6 +49,8 @@
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
                     <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="90"/>
                     <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="300"/>
+                    <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="90"/>
+                    <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="300"/>
                 </GridView>
             </ListView.View>
         </ListView>

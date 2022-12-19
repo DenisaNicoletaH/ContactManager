@@ -12,12 +12,8 @@ namespace ContactManager.Database.Entities
         public int Id { get; set; }
         public string PhoneNumber { get; set; }
         public string TypeCode { get; set; }
-        public Phone(int id, string phoneNumber)
-        {
-            Id = id;
-            PhoneNumber = phoneNumber;
-        }
-
+        public string CreatedDate { get; set; }
+        public string UpdatedDate { get; set; }
 
         public Phone()
         {
