@@ -38,35 +38,27 @@ namespace ContactManager
                 string fName = tb1.Text;
                 string lName = tb2.Text;
                 string mName = tb3.Text;
-                string active = trueCheckbox.IsChecked.ToString();
+                //string active = trueCheckbox.IsChecked.ToString();
                 DateTime currentTime = DateTime.Now;
 
                 string iId = tb5.Text;
                 int imageId=-1;
                 ArrayList imageIds = new ArrayList();
 
-                /*
-                if (fName.Equals("") || lName.Equals("") || active.Equals("") ||
+                
+                if (fName.Equals("") || lName.Equals("") ||
                     mName.Equals("") || iId.Equals(""))
                 {
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
-                */
+                
                
                 if (mName.Length > 1)
                 {
                     MessageBox.Show("Middle name can only be one character");
                     return;
                 }
-
-                /*
-               if (!active.ToLower().Equals("true") && !active.ToLower().Equals("false"))
-                {
-                    MessageBox.Show("Active field is not valid! Please enter true or false");
-                    return;
-                }
-                */
 
                 bool validId = Int32.TryParse(iId,out imageId);
                 if (!validId || imageId<=0)

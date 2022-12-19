@@ -40,8 +40,8 @@ namespace ContactManager.Database
                     contact.Id = (int)sdr["Id"];
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
-                    contact.CreatedDate = (DateTime)sdr["CreateDate"];
-                    contact.UpdatedDate = (DateTime)sdr["UpdateDate"];
+                    contact.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    contact.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                     contacts.Add(contact);
                 }
                 sdr.Close();
@@ -67,8 +67,8 @@ namespace ContactManager.Database
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
-                    contact.CreatedDate = (DateTime)sdr["CreateDate"];
-                    contact.UpdatedDate = (DateTime)sdr["UpdateDate"];
+                    contact.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    contact.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                 }
                 sdr.Close();
             }

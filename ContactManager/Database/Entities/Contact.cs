@@ -15,8 +15,8 @@ namespace ContactManager.Database.Entities
         public string LastName { get; set; }  
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public string CreatedDate { get; set; }
+        public string UpdatedDate { get; set; }
 
 
         //dont need to write the address cause theres another class for that
