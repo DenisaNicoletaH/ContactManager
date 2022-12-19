@@ -41,9 +41,9 @@ namespace ContactManager.Database
                     contact.Id = (int)sdr["Id"];
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
+                    contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
                     contact.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
-                    contact.MiddleName = sdr["MiddleName"].ToString();
                     contacts.Add(contact);
                 }
                 sdr.Close();
@@ -69,6 +69,7 @@ namespace ContactManager.Database
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
+                    contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
                     contact.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                 }
@@ -89,16 +90,23 @@ namespace ContactManager.Database
             }
         }
 
-        public void UpdateContact(int contactId, string firstName, string lastName)
+        public void UpdateContact(int contactId, string firstName, string lastName, string middleName)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                if (middleName.Length > 1)
+                {
+                    MessageBox.Show("Middle name cannot be more than one character");
+                    return;
+                }
+
                 DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
                 command.Parameters.AddWithValue("@FirstName", firstName);
                 command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@MiddleName", middleName);
                 command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }

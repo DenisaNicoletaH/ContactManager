@@ -27,6 +27,7 @@ namespace ContactManager
         int contactId = 0;
         private string firstName;
         private string lastName;
+        private string middleName;
 
         public string FirstNameContact
         {
@@ -38,6 +39,12 @@ namespace ContactManager
         {
             get { return lastName; }
             set { lastName = value; OnPropertyChanged("LastNameContact"); }
+        }
+
+        public string MiddleNameContact
+        {
+            get { return middleName; }
+            set { middleName = value; OnPropertyChanged("MiddleNameContact"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -61,6 +68,8 @@ namespace ContactManager
             FirstNameContact = contact.FirstName;
             LastName.Text = contact.LastName;
             LastNameContact = contact.LastName;
+            MiddleName.Text = contact.MiddleName;
+            MiddleNameContact = contact.MiddleName;
             var addresses = dB.GetAddressesForContact(id);
             foreach (var address in addresses)
             {
@@ -84,11 +93,12 @@ namespace ContactManager
         {
             FirstName.IsReadOnly = false;
             LastName.IsReadOnly = false;
+            MiddleName.IsReadOnly = false;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            dB.UpdateContact(contactId, FirstNameContact, LastNameContact);
+            dB.UpdateContact(contactId, FirstNameContact, LastNameContact, MiddleNameContact);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
