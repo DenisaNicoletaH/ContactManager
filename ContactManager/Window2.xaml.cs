@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Runtime.ConstrainedExecution;
 using System.ComponentModel;
+using System.Security.Policy;
 
 namespace ContactManager
 {
@@ -79,9 +80,8 @@ namespace ContactManager
             var emails = dB.GetEmails(id);
             foreach(var email in emails)
             {
-                this.emailDetails.Items.Add(new Email { Id = email.Id, EmailAddress = email.EmailAddress });
+                this.emailDetails.Items.Add(new Email { Id = email.Id, EmailAddress = email.EmailAddress, TypeCode = email.TypeCode, CreatedDate = email.CreatedDate, UpdatedDate = email.UpdatedDate });
             }
-
             var phones = dB.GetPhones(id);
             foreach (var phone in phones)
             {

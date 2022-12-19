@@ -61,7 +61,10 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailAddress}" Width="400"/>
+                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailAddress}" Width="150"/>
+                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="150"/>
+                    <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="150"/>
+                    <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>

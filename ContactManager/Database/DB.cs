@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -355,20 +356,23 @@ namespace ContactManager.Database
             return phone;
         }
 
-        public List<Email> GetEmails(int contact_id)
+        public List<Email> GetEmails(int contactId)
         {
             List<Email> emails = new List<Email>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 SqlCommand command = new SqlCommand("SELECT * FROM Email WHERE Contact_Id=@Contact_Id AND Active=1", con);
-                command.Parameters.AddWithValue("@Contact_Id", contact_id);
+                command.Parameters.AddWithValue("@Contact_Id", contactId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
                     Email email = new Email();
                     email.Id = (int)sdr["Id"];
                     email.EmailAddress = sdr["EmailAddress"].ToString();
+                    email.TypeCode = sdr["Type_Code"].ToString();
+                    email.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    email.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                     emails.Add(email);
                 }
                 sdr.Close();
@@ -390,6 +394,8 @@ namespace ContactManager.Database
                     email.Id = (int)sdr["Id"];
                     email.EmailAddress = sdr["EmailAddress"].ToString();
                     email.TypeCode = sdr["Type_Code"].ToString();
+                    email.CreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                    email.UpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
                 }
                 sdr.Close();
             }
@@ -398,27 +404,28 @@ namespace ContactManager.Database
 
         public void UpdateEmail(int contactId, int emailId, string emailAddress, string typeCode)
         {
+            DateTime currentTime = DateTime.Now;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Email SET EmailAddress=@EmailAddress, Type_Code=@TypeCode WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Email SET EmailAddress=@EmailAddress, Type_Code=@TypeCode, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", emailId);
                 command.Parameters.AddWithValue("@EmailAddress", emailAddress);
                 command.Parameters.AddWithValue("@TypeCode", typeCode);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                DateTime time = DateTime.Now;
                 con.Open();
                 SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
-                command.Parameters.AddWithValue("@UpdatedDate", time);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
         }
 
-        public void AddEmailToContact(int contactId, string email, DateTime currentTime, char typeCode)
+        public void AddEmail(int contactId, string email, DateTime currentTime, char typeCode)
         {
             using(SqlConnection con = new SqlConnection(connectionString))
             {
