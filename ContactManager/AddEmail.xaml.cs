@@ -52,7 +52,7 @@ namespace ContactManager
 
                 if (!matchedString)
                 {
-                    MessageBox.Show("The email should include the at sign \"@\" and the period as in \".com\"");
+                    MessageBox.Show("The email isn't valid, check if it includes the at sign \"@\" and the period as in \".com\"");
                     return;
                 }
 
