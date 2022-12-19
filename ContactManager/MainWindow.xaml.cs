@@ -31,8 +31,6 @@ namespace ContactManager
         {
             //this shows the window
             InitializeComponent();
-           
-
       
             var contacts = dB.GetContacts();
             // var phoneNumbers = dB.getPhoneForContact();
@@ -66,45 +64,39 @@ namespace ContactManager
 
         private void AtoZ_Click(object sender, RoutedEventArgs e)
         {
-
-            List<Contact> contacts = dB.GetContacts();
-            if(AtoZ.IsPressed == true)
+            listView.Items.Clear();
+            var contacts = dB.GetContacts();
+            var sortedContacts = contacts.OrderBy(x => x.FirstName);
+            foreach (var contact in sortedContacts)
             {
+                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate = contact.CreatedDate, UpdatedDate = contact.UpdatedDate, MiddleName = contact.MiddleName });
 
-                var sortedList = contacts.OrderBy(x => x.FirstName).ToList();
             }
-           
-
         }
 
         private void ZtoA_Click(object sender, RoutedEventArgs e)
         {
-            List<Contact> contacts = dB.GetContacts();
-
-            if (ZtoA.IsPressed == true)
+            listView.Items.Clear();
+            var contacts = dB.GetContacts();
+            var sortedContacts = contacts.OrderBy(x => x.FirstName).Reverse().ToList();
+            foreach (var contact in sortedContacts)
             {
+                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate = contact.CreatedDate, UpdatedDate = contact.UpdatedDate, MiddleName = contact.MiddleName });
 
-                var sortedList = contacts.OrderBy(x => x.FirstName).Reverse().ToList();
             }
-            
         }
 
         private void IdCheckbox(object sender, RoutedEventArgs e)
         {
-            List<Contact> contacts = dB.GetContacts();
-            if (IdOrder.IsChecked == true)
+            listView.Items.Clear();
+            var contacts = dB.GetContacts();
+            var sortedContacts = contacts.OrderBy(x => x.Id).ToList();
+            foreach (var contact in sortedContacts)
             {
-                var sortedId=contacts.OrderBy(x => x.Id).ToList();
-            }
-            else
-            {
-                var sortedId=contacts.OrderBy(x => x.Id).Reverse().ToList();
-            }
-
-
-            {
+                this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate = contact.CreatedDate, UpdatedDate = contact.UpdatedDate, MiddleName = contact.MiddleName });
 
             }
+
         }
     }
 
