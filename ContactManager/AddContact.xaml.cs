@@ -39,6 +39,7 @@ namespace ContactManager
                 string lName = tb2.Text;
                 string mName = tb3.Text;
                 string active = trueCheckbox.IsChecked.ToString();
+                DateTime currentTime = DateTime.Now;
 
                 string iId = tb5.Text;
                 int imageId=-1;
@@ -94,7 +95,7 @@ namespace ContactManager
                     MessageBox.Show("Image id is not valid");
                     return;
                 }
-                DateTime currentTime=DateTime.Now;
+                
                 con.Open();
                 SqlCommand command = new SqlCommand("INSERT INTO Contact(FirstName,LastName,MiddleName,Active,Image_Id,CreateDate,UpdateDate) VALUES(@firstName,@lastName,@middleName,@active,@imageId,@createDate,@updateDate)", con);
                 command.Parameters.AddWithValue("@firstName",fName);
@@ -107,27 +108,6 @@ namespace ContactManager
                 command.ExecuteNonQuery();
                 this.Close();
             }
-        }
-
-        private void tb4_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tb1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-      
-        //???
-        private void trueCheckbox_Checked(object sender, RoutedEventArgs e)
-        {
-            if(trueCheckbox.IsChecked == true)
-            {
-                
-            }
-
         }
     }
 }

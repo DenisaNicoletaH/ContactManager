@@ -36,11 +36,13 @@ namespace ContactManager.Database
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                        Contact contact = new Contact();
-                        contact.Id = (int)sdr["Id"];
-                        contact.FirstName = sdr["FirstName"].ToString();
-                        contact.LastName = sdr["LastName"].ToString();
-                        contacts.Add(contact);
+                    Contact contact = new Contact();
+                    contact.Id = (int)sdr["Id"];
+                    contact.FirstName = sdr["FirstName"].ToString();
+                    contact.LastName = sdr["LastName"].ToString();
+                    contact.CreatedDate = (DateTime)sdr["CreateDate"];
+                    contact.UpdatedDate = (DateTime)sdr["UpdateDate"];
+                    contacts.Add(contact);
                 }
                 sdr.Close();
             }
@@ -65,7 +67,8 @@ namespace ContactManager.Database
                     contact.FirstName = sdr["FirstName"].ToString();
                     contact.MiddleName = sdr["MiddleName"].ToString();
                     contact.LastName = sdr["LastName"].ToString();
-                   
+                    contact.CreatedDate = (DateTime)sdr["CreateDate"];
+                    contact.UpdatedDate = (DateTime)sdr["UpdateDate"];
                 }
                 sdr.Close();
             }
@@ -88,11 +91,13 @@ namespace ContactManager.Database
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
                 command.Parameters.AddWithValue("@FirstName", firstName);
                 command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
                 command.ExecuteNonQuery();
             }
         }
