@@ -1,4 +1,5 @@
 ﻿using ContactManager.Database.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,16 +31,32 @@ namespace ContactManager.Database
         //test push
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
 
-        public string GetCSVFile()
+        public void GetCSVFile()
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                return CreateCSV(new SqlCommand("select * from Contact", con).ExecuteReader());
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files | *.txt";
+            saveFileDialog.InitialDirectory = @"C:\";
+            if (saveFileDialog.ShowDialog() == true) {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    SqlCommand command = new SqlCommand("select * from Contact Where Active=1", con);
+                    SqlDataReader sdr = command.ExecuteReader();
+                    Stream fileStream = saveFileDialog.OpenFile();
+                    StreamWriter sw = new StreamWriter(fileStream);
+                    while (sdr.Read())
+                    {
+                        string createdDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                        string updatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
+                        sw.WriteLine(sdr["Id"]+", " + sdr["FirstName"]+", " + sdr["MiddleName"]+", " + sdr["LastName"]+", " + createdDate+", " + updatedDate);
+                    }
+                    sw.Close();
+                    /*return CreateCSV(new SqlCommand("select * from Contact", con).ExecuteReader());*/
+                }
             }
         }
 
-        public string CreateCSV(IDataReader reader)
+        /*public void CreateCSV(IDataReader reader)
         {
             string file = @"c:\\";
             List<string> lines = new List<string>();
@@ -62,7 +79,7 @@ namespace ContactManager.Database
             }
             System.IO.File.WriteAllLines(file, lines);
             return file;
-        }
+        }*/
 
         public List<Contact> GetContacts()
         {
