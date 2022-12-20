@@ -15,6 +15,8 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace ContactManager.Database
@@ -556,8 +558,28 @@ namespace ContactManager.Database
                 command.ExecuteNonQuery();
             }
         }
-
-
+        public Image GetImage(int contactId)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                Image img = new Image();
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Contact_Image Join Contact on Contact.Image_Id=Contact_Image.Id WHERE Contact.Id=@Id", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                SqlDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    MemoryStream ms = new MemoryStream((byte[])sdr["Image"]);
+                    BitmapImage imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.StreamSource = ms;
+                    imageSource.EndInit();
+                    img.Source = imageSource;
+                }
+                sdr.Close();
+                return img;
+            }
+        }
 
 
 

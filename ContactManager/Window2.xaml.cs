@@ -72,6 +72,9 @@ namespace ContactManager
             MiddleName.Text = contact.MiddleName;
             MiddleNameContact = contact.MiddleName;
 
+            var image = dB.GetImage(id);
+            pfp.Source = image.Source;
+
             var addresses = dB.GetAddresses(id);
             foreach (var address in addresses)
             {

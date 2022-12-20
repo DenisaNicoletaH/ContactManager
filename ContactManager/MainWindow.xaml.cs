@@ -66,6 +66,14 @@ namespace ContactManager
             this.Close();
         }
 
+        private void AddImage_Click(object sender, RoutedEventArgs e)
+        {
+            AddImage detailsWindow = new AddImage();
+            detailsWindow.Show();
+            detailsWindow.Focus();
+            this.Close();
+        }
+
         private void AtoZ_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();

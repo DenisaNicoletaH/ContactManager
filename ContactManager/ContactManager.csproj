@@ -64,6 +64,9 @@
     <Compile Include="AddEmail.xaml.cs">
       <DependentUpon>AddEmail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddImage.xaml.cs">
+      <DependentUpon>AddImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddPhone.xaml.cs">
       <DependentUpon>AddPhone.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEmail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
