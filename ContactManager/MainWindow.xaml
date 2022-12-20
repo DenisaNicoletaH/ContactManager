@@ -16,8 +16,13 @@
         <Style x:Key="TitleStyle" TargetType="Label">
             <Setter Property="FontFamily" Value="Agency Fb" />
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
 
+        </Style>
 
+        <Style x:Key="ListViewColor" TargetType="ListView">
+            <Setter Property="FontFamily" Value="Agency Fb"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
         </Style>
         
     
@@ -36,11 +41,11 @@
         <Label Content="Contact Manager" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24px" Style="{StaticResource TitleStyle}"/>
         <ScrollViewer Margin="0,0,0,-79" Grid.RowSpan="2">
 
-            <ListView x:Name="listView" Grid.Column="1"
-              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick" Width="800" Height="373">
+            <ListView x:Name="listView" Grid.Column="1" Style="{StaticResource ListViewColor}"
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,50,0,0" Grid.ColumnSpan="2" MouseDoubleClick="listView_MouseDoubleClick" Width="800" Height="373" Background="White">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50" />
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="170"/>
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="170"/>
                         <GridViewColumn Header="Middle Name" DisplayMemberBinding="{Binding MiddleName}" Width="100"/>
@@ -65,7 +70,7 @@
                 <Label Content="Z --> A" RenderTransformOrigin="0.055,0.055" Style="{StaticResource TitleStyle}"/>
             </Viewbox>
         </Button>
-        <CheckBox x:Name="IdOrder" Content="Id Order" Checked="IdCheckbox"  HorizontalAlignment="Left" Margin="670,23,0,0" VerticalAlignment="Top" Height="18" RenderTransformOrigin="0.5,0.5" Width="94" FontFamily="Bahnschrift " Foreground="White" >
+        <CheckBox x:Name="IdOrder" Content="Id Order" Checked="IdCheckbox"  HorizontalAlignment="Left" Margin="670,25,0,0" VerticalAlignment="Top" Height="15" RenderTransformOrigin="0.5,0.5" Width="94" FontFamily="Bahnschrift " Foreground="White" >
 
             <CheckBox.RenderTransform>
                 <TransformGroup>

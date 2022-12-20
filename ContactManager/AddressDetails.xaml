@@ -6,24 +6,46 @@
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
         Title="AddressDetails"  MinHeight="450" MaxHeight="450" MinWidth="800" MaxWidth="800" Background="SteelBlue">
+
+    <Window.Resources>
+        <Style x:Key="TitleColor" TargetType="Label">
+            <Setter Property="FontFamily" Value="Agency FB"/>
+            <Setter Property="Foreground" Value="White">
+
+
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="ButtonColor" TargetType="Button">
+            <Setter Property="FontFamily" Value="Agency FB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkOrange"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+
+
+    </Window.Resources>
     <Grid>
-        <Label Content="Address Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="173"/>
+        <Label Content="Address Details" HorizontalAlignment="Left" Margin="316,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="172" Style="{StaticResource TitleColor}"/>
         <TextBox x:Name="streetBox" IsReadOnly="True" Text="{Binding Path=StreetAddress}" HorizontalAlignment="Left" Margin="107,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="cityBox" IsReadOnly="True" Text="{Binding Path=CityAddress}" HorizontalAlignment="Left" Margin="107,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="stateBox" IsReadOnly="True" Text="{Binding Path=StateAddress}" HorizontalAlignment="Left" Margin="107,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="countryBox" IsReadOnly="True" Text="{Binding Path=CountryAddress}" HorizontalAlignment="Left" Margin="107,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="pcBox" IsReadOnly="True" Text="{Binding Path=PostalCodeAddress}" HorizontalAlignment="Left" Margin="107,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="tcBox" IsReadOnly="True" Text="{Binding Path=TypeCodeAddress}" HorizontalAlignment="Left" Margin="107,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="cityBox" IsReadOnly="True" Text="{Binding Path=CityAddress}" HorizontalAlignment="Left" Margin="334,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="stateBox" IsReadOnly="True" Text="{Binding Path=StateAddress}" HorizontalAlignment="Left" Margin="579,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="countryBox" IsReadOnly="True" Text="{Binding Path=CountryAddress}" HorizontalAlignment="Left" Margin="107,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="pcBox" IsReadOnly="True" Text="{Binding Path=PostalCodeAddress}" HorizontalAlignment="Left" Margin="334,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tcBox" IsReadOnly="True" Text="{Binding Path=TypeCodeAddress}" HorizontalAlignment="Left" Margin="581,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
 
-        <Label Content="Street:" HorizontalAlignment="Left" Margin="28,85,0,0" VerticalAlignment="Top" Height="26" Width="70"/>
-        <Label Content="City:" HorizontalAlignment="Left" Margin="28,109,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        <Label Content="State:" HorizontalAlignment="Left" Margin="28,133,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        <Label Content="Country:" HorizontalAlignment="Left" Margin="28,157,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        <Label Content="Postal Code:" HorizontalAlignment="Left" Margin="28,181,0,0" VerticalAlignment="Top" Height="26" Width="80"/>
-        <Label Content="Type Code:" HorizontalAlignment="Left" Margin="26,205,0,0" VerticalAlignment="Top" Height="26" Width="86"/>
 
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="28,250,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="45" Width="62"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="100,250,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="45" Width="62"/>
-        <Button Content="Delete Address" HorizontalAlignment="Left" Margin="172,250,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="45" Width="103"/>
+        <Label Content="Street:" HorizontalAlignment="Left" Margin="44,85,0,0" VerticalAlignment="Top" Height="26" Width="45" Style="{StaticResource TitleColor}"/>
+        <Label Content="City:" HorizontalAlignment="Left" Margin="289,85,0,0" VerticalAlignment="Top" Height="26" Width="40" Style="{StaticResource TitleColor}"/>
+        <Label Content="State:" HorizontalAlignment="Left" Margin="530,85,0,0" VerticalAlignment="Top" Height="26" Width="41" Style="{StaticResource TitleColor}"/>
+        <Label Content="Country:" HorizontalAlignment="Left" Margin="40,150,0,0" VerticalAlignment="Top" Height="26" Width="49" Style="{StaticResource TitleColor}"/>
+        <Label Content="Postal Code:" HorizontalAlignment="Left" Margin="270,150,0,0" VerticalAlignment="Top" Height="26" Width="61" Style="{StaticResource TitleColor}"/>
+        <Label Content="Type Code:" HorizontalAlignment="Left" Margin="519,149,0,0" VerticalAlignment="Top" Height="26" Width="60" Style="{StaticResource TitleColor}"/>
+
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="47,335,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Save" HorizontalAlignment="Center" Margin="0,335,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Delete Address" HorizontalAlignment="Left" Margin="579,335,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
     </Grid>
 </Window>

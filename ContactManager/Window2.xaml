@@ -5,28 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="Window2" Height="650" Width="660">
-   
-    
-    <Window.Resources></Window.Resources>
-    
-    
-    
-    
-    
-    
-    <Grid Margin="0,0,0,-22">
-        <Label Content="Contact Details" HorizontalAlignment="Left" Margin="238,10,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="170"/>
-        <TextBox x:Name="FirstName" IsReadOnly="True" Text="{Binding Path=FirstNameContact}" HorizontalAlignment="Left" Margin="90,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="LastName" IsReadOnly="True" Text="{Binding Path=LastNameContact}" HorizontalAlignment="Left" Margin="300,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="MiddleName" IsReadOnly="True" Text="{Binding Path=MiddleNameContact}" HorizontalAlignment="Left" Margin="515,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <Label Content="First Name:" HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top" Height="26" Width="70"/>
-        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="230,84,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        <Label Content="Middle Name:" HorizontalAlignment="Left" Margin="430,84,0,0" VerticalAlignment="Top" Height="26" Width="85"/>
+        Title="Window2" Height="650" Width="660" Background="SteelBlue">
 
-        <Label Content="Address" HorizontalAlignment="Left" Margin="270,117,0,0" VerticalAlignment="Top" Height="26" Width="68" RenderTransformOrigin="0.438,-1.525"/>
-        <ListView x:Name="addressDetails" VerticalAlignment="Top"  Width="428" HorizontalAlignment="Left" Height="100" 
-              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="107,144,0,0" MouseDoubleClick="addressDetails_MouseDoubleClick" >
+
+    <Window.Resources>
+        <Style x:Key="TextColor" TargetType="Label">
+            <Setter Property="FontFamily" Value="Agency Fb" />
+            <Setter Property="Foreground" Value="White">
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="ButtonColor" TargetType="Button">
+            <Setter Property="FontFamily" Value="Agency Fb" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="DarkOrange"/>
+
+
+        </Style>
+
+        <Style x:Key="ListViewColor" TargetType="ListView">
+        <Setter Property="FontFamily" Value="Agency Fb"/>
+        <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+
+    </Window.Resources>
+
+
+
+
+
+
+    <Grid Margin="0,0,0,-22">
+
+        <Label Content="Contact Details" HorizontalAlignment="Left" Margin="272,10,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="124" Style="{StaticResource TextColor}"/>
+        <TextBox x:Name="FirstName" IsReadOnly="True" Text="{Binding Path=FirstNameContact}" HorizontalAlignment="Left" Margin="90,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" />
+        <TextBox x:Name="LastName" IsReadOnly="True" Text="{Binding Path=LastNameContact}" HorizontalAlignment="Left" Margin="298,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="MiddleName" IsReadOnly="True" Text="{Binding Path=MiddleNameContact}" HorizontalAlignment="Left" Margin="515,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+
+        <Label Content="First Name:" HorizontalAlignment="Left" Margin="20,83,0,0" VerticalAlignment="Top" Height="26" Width="70" Style="{StaticResource TextColor}"/>
+        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="230,80,0,0" VerticalAlignment="Top" Height="26" Width="68" Style="{StaticResource TextColor}"/>
+        <Label Content="Middle Name:" HorizontalAlignment="Left" Margin="438,80,0,0" VerticalAlignment="Top" Height="26" Width="72" Style="{StaticResource TextColor}"/>
+
+        <Label Content="Address" HorizontalAlignment="Left" Margin="284,117,0,0" VerticalAlignment="Top" Height="26" Width="50" RenderTransformOrigin="0.438,-1.525" Style="{StaticResource TextColor}"/>
+        <ListView x:Name="addressDetails" VerticalAlignment="Top"  Width="578" HorizontalAlignment="Center" Height="100" Style="{StaticResource ListViewColor}"
+              SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,145,0,0" MouseDoubleClick="addressDetails_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="20"/>
@@ -34,50 +59,52 @@
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding City}" Width="80"/>
                     <GridViewColumn Header="State/Province" DisplayMemberBinding="{Binding State}" Width="100"/>
                     <GridViewColumn Header="Postal Code" DisplayMemberBinding="{Binding PostalCode}" Width="150"/>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" Width="150"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Country}" Width="130"/>
                     <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="100"/>
                     <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add Address" HorizontalAlignment="Left" Margin="544,182,0,0" VerticalAlignment="Top" Click="AddAddress_Click" Height="24" Width="75"/>
+        <Button Content="Add Address" HorizontalAlignment="Left" Margin="337,116,0,0" VerticalAlignment="Top" Click="AddAddress_Click" Height="24" Width="75" Style="{StaticResource ButtonColor}"/>
         <!--<Label Content="Email:" HorizontalAlignment="Left" Margin="130,326,0,0" VerticalAlignment="Top" Height="26" Width="68" RenderTransformOrigin="0.438,-1.525"/>
         <TextBox x:Name="Email" HorizontalAlignment="Left" Margin="220,326,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18" IsReadOnly="True" RenderTransformOrigin="0.593,0.502"/>
         <TextBox x:Name="PhoneB" HorizontalAlignment="Left" Margin="220,286,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18" IsReadOnly="True"/>-->
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="133,537,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="23" Width="62"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="289,537,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="23" Width="62"/>
-        <Button Content="Delete Contact" HorizontalAlignment="Left" Margin="420,537,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="23" Width="94"/>
-        <Label Content="Phone" HorizontalAlignment="Left" Margin="283,249,0,0" VerticalAlignment="Top" Height="26" Width="58" RenderTransformOrigin="0.438,-1.525"/>
-        <Label Content="Email" HorizontalAlignment="Left" Height="24" Margin="287,381,0,0" VerticalAlignment="Top" Width="50"/>
 
-        <ListView x:Name="phoneDetails" VerticalAlignment="Top"  Width="425" HorizontalAlignment="Left" Height="100" 
-            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="110,281,0,0" MouseDoubleClick="phoneDetails_MouseDoubleClick">
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="133,559,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="24" Width="75" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="290,557,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="24" Width="76" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Delete Contact" HorizontalAlignment="Left" Margin="444,557,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="24" Width="75" Style="{StaticResource ButtonColor}"/>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="90"/>
-                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="300"/>
-                    <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="90"/>
-                    <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="300"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Label Content="Phone" HorizontalAlignment="Left" Margin="291,253,0,0" VerticalAlignment="Top" Height="26" Width="40" RenderTransformOrigin="0.438,-1.525" Style="{StaticResource TextColor}"/>
+        <Label Content="Email" HorizontalAlignment="Left" Height="24" Margin="294,395,0,0" VerticalAlignment="Top" Width="32" Style="{StaticResource TextColor}"/>
 
-        <ListView x:Name="emailDetails" VerticalAlignment="Top"  Width="422" HorizontalAlignment="Center" Height="100" 
-            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,409,0,0" MouseDoubleClick="emailDetails_MouseDoubleClick" >
+        <ListView x:Name="phoneDetails" VerticalAlignment="Top"  Width="578" HorizontalAlignment="Center" Height="100" Style="{StaticResource ListViewColor}"
+            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,286,0,0" MouseDoubleClick="phoneDetails_MouseDoubleClick">
 
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailAddress}" Width="150"/>
-                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="150"/>
+                    <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="150"/>
+                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="80"/>
                     <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="150"/>
                     <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add Phone" HorizontalAlignment="Left" Margin="550,331,0,0" VerticalAlignment="Top" Click="AddPhone_Click" RenderTransformOrigin="0.534,1.48"/>
-        <Button Content="Add Email" HorizontalAlignment="Left" Margin="550,444,0,0" VerticalAlignment="Top" Click="AddEmail_Click" RenderTransformOrigin="0.534,1.48"/>
+
+        <ListView x:Name="emailDetails" VerticalAlignment="Top"  Width="578" HorizontalAlignment="Center" Height="100"  Style="{StaticResource ListViewColor}"
+            SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Margin="0,429,0,0" MouseDoubleClick="emailDetails_MouseDoubleClick" >
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                    <GridViewColumn Header="Email Address" DisplayMemberBinding="{Binding EmailAddress}" Width="150"/>
+                    <GridViewColumn Header="Type Code" DisplayMemberBinding="{Binding TypeCode}" Width="80"/>
+                    <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding CreatedDate}" Width="150"/>
+                    <GridViewColumn Header="Updated Date" DisplayMemberBinding="{Binding UpdatedDate}" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add Phone" HorizontalAlignment="Left" Margin="337,254,0,0" VerticalAlignment="Top" Click="AddPhone_Click" RenderTransformOrigin="0.534,1.48" Style="{StaticResource ButtonColor}" Height="24" Width="75"/>
+        <Button Content="Add Email" HorizontalAlignment="Left" Margin="336,396,0,0" VerticalAlignment="Top" Click="AddEmail_Click" RenderTransformOrigin="0.534,1.48" Style="{StaticResource ButtonColor}" Height="24" Width="75"/>
     </Grid>
 </Window>

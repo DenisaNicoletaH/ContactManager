@@ -56,6 +56,7 @@ namespace ContactManager
                 if (fName.Equals("") || lName.Equals("") ||
                     mName.Equals("") || iId.Equals(""))
                 {
+                
                     MessageBox.Show("One or more of the fields above is empty");
                     return;
                 }
