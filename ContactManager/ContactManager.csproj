@@ -71,6 +71,7 @@
       <DependentUpon>AddressDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Database\Entities\Address.cs" />
+    <Compile Include="Database\Entities\ContactImage.cs" />
     <Compile Include="Database\Entities\Email.cs" />
     <Compile Include="EmailDetails.xaml.cs">
       <DependentUpon>EmailDetails.xaml</DependentUpon>
