@@ -5,7 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="AddImage" Height="450" Width="800">
+        Title="AddImage" Height="450" Width="800" Background="SteelBlue">
+    <Window.Resources>
+        <Style x:Key="TextColor" TargetType="Label">
+            <Setter Property="FontFamily" Value="Agency Fb" />
+            <Setter Property="Foreground" Value="White">
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="ButtonColor" TargetType="Button">
+            <Setter Property="FontFamily" Value="Agency Fb" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="DarkOrange"/>
+        </Style>
+    </Window.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"/>
@@ -19,25 +37,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Margin="29,21,19,21">Add Image path:</Label>
-        <Label Grid.Row="1" Margin="17,22,31,22">Add Description:</Label>
+        <Label Grid.Row="0" Margin="133,21,19,21" Style="{StaticResource TextColor}">Add Image path:</Label>
+        <Label Grid.Row="1" Margin="122,30,31,14" Style="{StaticResource TextColor}">Add Description:</Label>
 
-        <Button x:Name="tb1"  Grid.Column="1" Grid.Row="0" Margin="0,11,10,10" Click="Browse_Click">
-            <Viewbox>
-                <Label>Browse</Label>
-            </Viewbox>
+        <Button x:Name="tb1" Content="Browse" Grid.Column="1" Grid.Row="0" Margin="133,32,175,32" Click="Browse_Click" Style="{StaticResource ButtonColor}">
+
         </Button>
-        <TextBox x:Name="tb2" Grid.Column="1" Margin="0,12,10,10" Grid.Row="1"/>
-        <Image x:Name="imagePreview" Grid.Row="2" Grid.ColumnSpan="2" Width="200"></Image>
-        <Button x:Name="Cancel" Grid.Row="5" Click="Cancel_Click" Margin="60,10,298,26" Grid.ColumnSpan="2">
-            <Viewbox>
-                <Label>Cancel</Label>
-            </Viewbox>
+        <TextBox x:Name="tb2" Grid.Column="1" Margin="39,22,40,24" Grid.Row="1"/>
+        <Image x:Name="imagePreview" Grid.Row="1" Width="200" Grid.Column="1" Margin="148,108,185,108" Grid.RowSpan="3"/>
+        <Button x:Name="Cancel" Content="Cancel" Grid.Row="3" Click="Cancel_Click" Margin="122,36,452,37" Grid.ColumnSpan="2" Height="35" Style="{StaticResource ButtonColor}">
+            
         </Button>
-        <Button x:Name="Save" Grid.Row="5" Grid.Column="1" Click="Save_Click" Margin="94,10,88,26">
-            <Viewbox>
-                <Label>Save</Label>
-            </Viewbox>
+        <Button x:Name="Save" Content="Save" Grid.Row="3" Grid.Column="1" Click="Save_Click" Margin="186,36,122,37" Height="35" Style="{StaticResource ButtonColor}">
+          
         </Button>
+        <Label Grid.Row="2" Margin="152,34,38,10" Content="Image:" Style="{StaticResource TextColor}"/>
     </Grid>
 </Window>

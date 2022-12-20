@@ -61,6 +61,7 @@ namespace ContactManager
                 command.Parameters.AddWithValue("@Image", image.ImageToByte);
                 command.Parameters.AddWithValue("@Description", description);
                 command.ExecuteNonQuery();
+
                 MainWindow contactsScreen = new MainWindow();
                 contactsScreen.Show();
                 contactsScreen.Focus();
