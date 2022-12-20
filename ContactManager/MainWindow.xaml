@@ -60,6 +60,11 @@
                 <Label Content="Add Contact" Style="{StaticResource TitleStyle}"/>
             </Viewbox>
         </Button>
+        <Button x:Name="ExportContacts" Margin="165,13,552,249" FontSize="100px" Style="{StaticResource ButtonKeys}" Click="ExportContacts_Click">
+            <Viewbox>
+                <Label Content="Export" RenderTransformOrigin="0.055,0.055" Style="{StaticResource TitleStyle}"/>
+            </Viewbox>
+        </Button>
         <Button x:Name="AtoZ" Click="AtoZ_Click" Margin="529,23,212,249" FontSize="100px" Style="{StaticResource ButtonKeys}" >
             <Viewbox>
                 <Label Content="A --> Z" Style="{StaticResource TitleStyle}"/>
@@ -81,6 +86,6 @@
                 </TransformGroup>
             </CheckBox.RenderTransform>
         </CheckBox>
-
+        
     </Grid>
 </Window>
