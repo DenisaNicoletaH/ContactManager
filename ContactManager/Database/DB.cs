@@ -29,7 +29,7 @@ namespace ContactManager.Database
         // s=sql SQLCOMMAND--?
 
         //test push
-        string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
+        string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         public void GetCSVFile()
         {
@@ -40,15 +40,57 @@ namespace ContactManager.Database
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    SqlCommand command = new SqlCommand("select * from Contact Where Active=1", con);
-                    SqlDataReader sdr = command.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand("select * from Contact Where Active=1", con);
+                    SqlDataReader sdr = cmd.ExecuteReader();
                     Stream fileStream = saveFileDialog.OpenFile();
                     StreamWriter sw = new StreamWriter(fileStream);
+                    int contactId;
                     while (sdr.Read())
                     {
-                        string createdDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
-                        string updatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
-                        sw.WriteLine(sdr["Id"]+", " + sdr["FirstName"]+", " + sdr["MiddleName"]+", " + sdr["LastName"]+", " + createdDate+", " + updatedDate);
+                        contactId = Int32.Parse(sdr["Id"].ToString());
+                        string contactCreatedDate = String.Format("{0:MM/dd/yyyy}", sdr["CreateDate"]);
+                        string contactUpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr["UpdateDate"]);
+                        sw.WriteLine(sdr["Id"]+", " + sdr["FirstName"]+", " + sdr["MiddleName"]+", " + sdr["LastName"]+", " + contactCreatedDate + ", " + contactUpdatedDate);
+                        sw.WriteLine();
+                        using (SqlConnection con2 = new SqlConnection(connectionString))
+                        {
+                            SqlCommand cmd2 = new SqlCommand("select * from Address Where Active=1 and Contact_Id=@ContactId", con);
+                            cmd2.Parameters.AddWithValue("@ContactId", contactId);
+                            SqlDataReader sdr2 = cmd2.ExecuteReader();
+                            while (sdr2.Read())
+                            {
+                                string addressCreatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["CreateDate"]);
+                                string addressUpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["UpdateDate"]);
+                                sw.WriteLine("\t" + sdr2["Id"] + ", " + sdr2["Contact_Id"] + ", " + sdr2["Street"] + ", " + sdr2["City"] + ", " + sdr2["State"] + ", " + sdr2["Country"] + ", " + sdr2["PostalCode"] + ", " + addressCreatedDate + ", " + addressUpdatedDate + sdr2["Type_Code"]);
+                            }
+                        }
+                        sw.WriteLine();
+                        using (SqlConnection con2 = new SqlConnection(connectionString))
+                        {
+                            SqlCommand cmd2 = new SqlCommand("select * from Phone Where Active=1 and Contact_Id=@ContactId", con);
+                            cmd2.Parameters.AddWithValue("@ContactId", contactId);
+                            SqlDataReader sdr2 = cmd2.ExecuteReader();
+                            while (sdr2.Read())
+                            {
+                                string phoneCreatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["CreateDate"]);
+                                string phoneUpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["UpdateDate"]);
+                                sw.WriteLine("\t" + sdr2["Id"] + ", " + sdr2["Contact_Id"] +", "+ sdr2["Phone"] + ", " + sdr2["Type_Code"] + ", " + phoneCreatedDate + ", " + phoneUpdatedDate);
+                            }
+                        }
+                        sw.WriteLine();
+                        using (SqlConnection con2 = new SqlConnection(connectionString))
+                        {
+                            SqlCommand cmd2 = new SqlCommand("select * from Email Where Active=1 and Contact_Id=@ContactId", con);
+                            cmd2.Parameters.AddWithValue("@ContactId", contactId);
+                            SqlDataReader sdr2 = cmd2.ExecuteReader();
+                            while (sdr2.Read())
+                            {
+                                string emailCreatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["CreateDate"]);
+                                string emailUpdatedDate = String.Format("{0:MM/dd/yyyy}", sdr2["UpdateDate"]);
+                                sw.WriteLine("\t" + sdr2["Id"] + ", " + sdr2["Contact_Id"] + ", " + sdr2["EmailAddress"] + ", " + sdr2["Type_Code"] + ", " + emailCreatedDate + ", " + emailUpdatedDate);
+                            }
+                        }
+                        sw.WriteLine();
                     }
                     sw.Close();
                     /*return CreateCSV(new SqlCommand("select * from Contact", con).ExecuteReader());*/
