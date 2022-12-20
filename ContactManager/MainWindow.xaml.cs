@@ -1,10 +1,14 @@
 ﻿using ContactManager.Database;
 using ContactManager.Database.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
@@ -97,6 +101,11 @@ namespace ContactManager
 
             }
 
+        }
+
+        private void ExportContacts_Click(object sender, RoutedEventArgs e)
+        {
+            dB.GetCSVFile();
         }
     }
 

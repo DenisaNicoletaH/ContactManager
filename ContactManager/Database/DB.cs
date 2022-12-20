@@ -1,6 +1,7 @@
 ﻿using ContactManager.Database.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -28,7 +29,41 @@ namespace ContactManager.Database
 
         //test push
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
-          
+
+        public string GetCSVFile()
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                return CreateCSV(new SqlCommand("select * from Contact", con).ExecuteReader());
+            }
+        }
+
+        public string CreateCSV(IDataReader reader)
+        {
+            string file = @"c:\\";
+            List<string> lines = new List<string>();
+            string headerLine = "";
+            if (reader.Read())
+            {
+                string[] columns = new string[reader.FieldCount];
+                for(int i = 0; i < reader.FieldCount; i++)
+                {
+                    columns[i] = reader.GetName(i);
+                }
+                headerLine = string.Join(",", columns);
+                lines.Add(headerLine);
+            }
+            while (reader.Read())
+            {
+                object[] values = new object[reader.FieldCount];
+                reader.GetValues(values);
+                lines.Add(string.Join(",", values));
+            }
+            System.IO.File.WriteAllLines(file, lines);
+            return file;
+        }
+
         public List<Contact> GetContacts()
         {
             List<Contact> contacts = new List<Contact>();
