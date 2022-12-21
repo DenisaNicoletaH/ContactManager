@@ -153,21 +153,13 @@ namespace ContactManager
             }
             else 
             {
+                imageId = Int32.Parse(iId.Text);
                 dB.UpdateContactImage(contactId, imageId);
             }
 
             var contactUpdated = dB.GetContact(contactId);
             dB.UpdateContact(contactId, contactUpdated.FirstName, contactUpdated.LastName, contactUpdated.MiddleName, imageId);
 
-            Window2 contactDetails = new Window2(contactId);
-            contactDetails.Show();
-            contactDetails.Focus();
-            this.Close();
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            dB.DeleteContactImage(contactId);
             Window2 contactDetails = new Window2(contactId);
             contactDetails.Show();
             contactDetails.Focus();

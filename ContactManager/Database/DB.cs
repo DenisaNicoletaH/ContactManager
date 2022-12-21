@@ -624,21 +624,6 @@ namespace ContactManager.Database
             }
         }
 
-        public void DeleteContactImage(int contactId)
-        {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Contact SET Image_Id=@ImageId WHERE Id=@Id", con);
-                command.Parameters.AddWithValue("@Id", contactId);
-                command.Parameters.AddWithValue("@ImageId", null);
-                DateTime time = DateTime.Now;
-                command.Parameters.AddWithValue("@UpdatedDate", time);
-                command.ExecuteNonQuery();
-            }
-        }
-
-
 
         //List of Contacts goes to the center of the dockpanel
 
