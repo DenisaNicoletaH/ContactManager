@@ -5,17 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager"
         mc:Ignorable="d"
-        Title="PhoneDetails" Height="450" Width="800">
-    <Grid>
-        <Label Content="Phone Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="173"/>
-        <TextBox x:Name="pNumber" IsReadOnly="True" Text="{Binding Path=PhoneNumberPhone}" HorizontalAlignment="Left" Margin="150,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="tCode" IsReadOnly="True" Text="{Binding Path=TypeCodePhone}" HorizontalAlignment="Left" Margin="150,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        Title="PhoneDetails" Height="450" Width="800" Background="SteelBlue">
 
-        <Label Content="Phone Number:" HorizontalAlignment="Left" Margin="28,85,0,0" VerticalAlignment="Top" Height="26" Width="100"/>
-        <Label Content="Type Code:" HorizontalAlignment="Left" Margin="28,109,0,0" VerticalAlignment="Top" Height="26" Width="68"/>
-        
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="28,250,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="45" Width="62"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="100,250,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="45" Width="62"/>
-        <Button Content="Delete Phone" HorizontalAlignment="Left" Margin="172,250,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="45" Width="103"/>
+    <Window.Resources>
+        <Style x:Key="TitleColor" TargetType="Label">
+            <Setter Property="FontFamily" Value="Agency FB"/>
+            <Setter Property="Foreground" Value="White">
+
+
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="ButtonColor" TargetType="Button">
+            <Setter Property="FontFamily" Value="Agency FB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkOrange"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+
+
+    </Window.Resources>
+    <Grid>
+        <Label Content="Phone Details" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="24px" Height="42" Width="120" Style="{StaticResource TitleColor}"/>
+        <TextBox x:Name="pNumber" IsReadOnly="True" Text="{Binding Path=PhoneNumberPhone}" HorizontalAlignment="Left" Margin="150,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tCode" IsReadOnly="True" Text="{Binding Path=TypeCodePhone}" HorizontalAlignment="Left" Margin="553,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+
+        <Label Content="Phone Number:" HorizontalAlignment="Left" Margin="42,87,0,0" VerticalAlignment="Top" Height="26" Width="100" Style="{StaticResource TitleColor}"/>
+        <Label Content="Type Code:" HorizontalAlignment="Left" Margin="471,87,0,0" VerticalAlignment="Top" Height="26" Width="74" Style="{StaticResource TitleColor}"/>
+
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="59,347,0,0" VerticalAlignment="Top" Click="EditButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="314,347,0,0" VerticalAlignment="Top" Click="SaveButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
+        <Button Content="Delete Phone" HorizontalAlignment="Left" Margin="540,347,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" Height="35" Width="180" Style="{StaticResource ButtonColor}"/>
     </Grid>
 </Window>
