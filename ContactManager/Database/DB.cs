@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -18,6 +19,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Windows.Controls.Image;
 
 namespace ContactManager.Database
 {
@@ -188,18 +191,19 @@ namespace ContactManager.Database
             }
         }
 
-        public void UpdateContact(int contactId, string firstName, string lastName, string middleName)
+        public void UpdateContact(int contactId, string firstName, string lastName, string middleName, int iId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 DateTime currentTime = DateTime.Now;
                 con.Open();
-                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName, UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                SqlCommand command = new SqlCommand("UPDATE Contact SET FirstName=@FirstName, LastName=@LastName, MiddleName=@MiddleName, UpdateDate=@UpdatedDate, Image_Id=@ImageId WHERE Id = @Id;", con);
                 command.Parameters.AddWithValue("@Id", contactId);
                 command.Parameters.AddWithValue("@FirstName", firstName);
                 command.Parameters.AddWithValue("@LastName", lastName);
                 command.Parameters.AddWithValue("@MiddleName", middleName);
                 command.Parameters.AddWithValue("@UpdatedDate", currentTime);
+                command.Parameters.AddWithValue("@ImageId", iId);
                 command.ExecuteNonQuery();
             }
         }
@@ -558,31 +562,67 @@ namespace ContactManager.Database
                 command.ExecuteNonQuery();
             }
         }
-        public Image GetImage(int contactId)
+        public ContactImage GetContactImage(int contactId)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                Image img = new Image();
+                ContactImage img = new ContactImage();
                 con.Open();
                 SqlCommand command = new SqlCommand("SELECT * FROM Contact_Image Join Contact on Contact.Image_Id=Contact_Image.Id WHERE Contact.Id=@Id", con);
                 command.Parameters.AddWithValue("@Id", contactId);
                 SqlDataReader sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
+                    Image image = new Image();
                     MemoryStream ms = new MemoryStream((byte[])sdr["Image"]);
                     BitmapImage imageSource = new BitmapImage();
                     imageSource.BeginInit();
                     imageSource.StreamSource = ms;
                     imageSource.EndInit();
-                    img.Source = imageSource;
+                    image.Source = imageSource;
+                    img.Id = Int32.Parse(sdr["Id"].ToString());
+                    img.Img = image;
+                    img.Description = sdr["Description"].ToString();
+                    img.Img = image;
                 }
                 sdr.Close();
                 return img;
             }
         }
 
+        public void UpdateContactImage(int contactId, int imageId) 
+        {
+            DateTime currentTime = DateTime.Now;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET Image_Id=@ImageId WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@ImageId", imageId);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
+                command.ExecuteNonQuery();
+            }
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Contact SET UpdateDate=@UpdatedDate WHERE Id = @Id;", con);
+                command.Parameters.AddWithValue("@Id", contactId);
+                command.Parameters.AddWithValue("@UpdatedDate", currentTime);
+                command.ExecuteNonQuery();
+            }
+        }
 
-
+        public void AddContactImage(ContactImage cImage)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO Contact_Image(Image,Description) VALUES(@Image,@Description)", con);
+                command.Parameters.AddWithValue("@Image", cImage.ImageToByte);
+                command.Parameters.AddWithValue("@Description", cImage.Description);
+                command.ExecuteNonQuery();
+            }
+        }
 
 
         //List of Contacts goes to the center of the dockpanel

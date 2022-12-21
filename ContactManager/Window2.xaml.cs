@@ -29,6 +29,7 @@ namespace ContactManager
         private string firstName;
         private string lastName;
         private string middleName;
+        private int iId = 0;
 
         public string FirstNameContact
         {
@@ -72,8 +73,9 @@ namespace ContactManager
             MiddleName.Text = contact.MiddleName;
             MiddleNameContact = contact.MiddleName;
 
-            var image = dB.GetImage(id);
-            pfp.Source = image.Source;
+            var image = dB.GetContactImage(id);
+            pfp.Source = image.Img.Source;
+            iId = image.Id;
 
             var addresses = dB.GetAddresses(id);
             foreach (var address in addresses)
@@ -107,7 +109,7 @@ namespace ContactManager
                 MessageBox.Show("Middle name cannot be more than one character");
                 return;
             }
-            dB.UpdateContact(contactId, FirstNameContact, LastNameContact, MiddleNameContact);
+            dB.UpdateContact(contactId, FirstNameContact, LastNameContact, MiddleNameContact, iId);
             MainWindow contactsScreen = new MainWindow();
             contactsScreen.Show();
             contactsScreen.Focus();
@@ -173,6 +175,14 @@ namespace ContactManager
             AddEmail addEmailWindow = new AddEmail(contactId);
             addEmailWindow.Show();
             addEmailWindow.Focus();
+            this.Close();
+        }
+
+        private void pfp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ImageDetails detailsWindow = new ImageDetails(contactId);
+            detailsWindow.Show();
+            detailsWindow.Focus();
             this.Close();
         }
     }
