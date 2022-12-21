@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ContactManager.Database.Entities
 {
@@ -12,5 +13,7 @@ namespace ContactManager.Database.Entities
         public string ImagePath { get; set; }
         public byte[] ImageToByte { get; set; }
         public string Description { get; set; }
+
+        public Image Img { get; set; }
     }
 }

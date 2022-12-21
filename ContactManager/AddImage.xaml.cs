@@ -1,4 +1,5 @@
-﻿using ContactManager.Database.Entities;
+﻿using ContactManager.Database;
+using ContactManager.Database.Entities;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace ContactManager
         string connectionString = "Server=localhost;Database=finalProjectDB;Trusted_Connection=True";
         ContactImage image = new ContactImage();
         private string path;
-
+        DB dB = new DB();
         public AddImage()
         {
             InitializeComponent();
@@ -56,12 +57,14 @@ namespace ContactManager
 
                 image.ImagePath = path;
                 image.ImageToByte = File.ReadAllBytes(path);
-                con.Open();
+                /*con.Open();
                 SqlCommand command = new SqlCommand("INSERT INTO Contact_Image(Image,Description) VALUES(@Image,@Description)", con);
                 command.Parameters.AddWithValue("@Image", image.ImageToByte);
                 command.Parameters.AddWithValue("@Description", description);
-                command.ExecuteNonQuery();
+                command.ExecuteNonQuery();*/
 
+                image.Description = description;
+                dB.AddContactImage(image);
                 MainWindow contactsScreen = new MainWindow();
                 contactsScreen.Show();
                 contactsScreen.Focus();

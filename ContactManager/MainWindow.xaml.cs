@@ -43,8 +43,6 @@ namespace ContactManager
                 this.listView.Items.Add(new Contact { Id = contact.Id, FirstName = contact.FirstName, LastName = contact.LastName, CreatedDate=contact.CreatedDate, UpdatedDate=contact.UpdatedDate, MiddleName = contact.MiddleName });
 
             }
-           
-
         }
 
         //Double Click The Contact
