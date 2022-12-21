@@ -1,12 +1,12 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [finalProjectDB]    Script Date: 11/25/2022 3:05:15 PM ******/
+/****** Object:  Database [finalProjectDB]    Script Date: 12/20/2022 11:12:17 PM ******/
 CREATE DATABASE [finalProjectDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'finalProjectDB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\finalProjectDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'finalProjectDB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\finalProjectDB.mdf' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'finalProjectDB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\finalProjectDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'finalProjectDB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\finalProjectDB_log.ldf' , SIZE = 73728KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
  WITH CATALOG_COLLATION = DATABASE_DEFAULT
 GO
 ALTER DATABASE [finalProjectDB] SET COMPATIBILITY_LEVEL = 150
@@ -82,7 +82,7 @@ ALTER DATABASE [finalProjectDB] SET QUERY_STORE = OFF
 GO
 USE [finalProjectDB]
 GO
-/****** Object:  Table [dbo].[Address]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Address]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,13 +97,15 @@ CREATE TABLE [dbo].[Address](
 	[UpdateDate] [date] NOT NULL,
 	[Active] [bit] NOT NULL,
 	[Type_Code] [char](1) NOT NULL,
+	[Contact_Id] [int] NOT NULL,
+	[Country] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Contact]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Contact]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -115,7 +117,7 @@ CREATE TABLE [dbo].[Contact](
 	[Active] [bit] NOT NULL,
 	[CreateDate] [date] NOT NULL,
 	[UpdateDate] [date] NOT NULL,
-	[MiddleName] [nchar](1) NULL,
+	[MiddleName] [nchar](1) NOT NULL,
 	[Image_Id] [int] NOT NULL,
  CONSTRAINT [PK_Contact] PRIMARY KEY CLUSTERED 
 (
@@ -123,7 +125,7 @@ CREATE TABLE [dbo].[Contact](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Contact_Image]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Contact_Image]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -131,14 +133,14 @@ GO
 CREATE TABLE [dbo].[Contact_Image](
 	[Image] [varbinary](max) NOT NULL,
 	[Description] [nvarchar](30) NOT NULL,
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
  CONSTRAINT [PK_Contact_Image] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Email]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Email]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -150,13 +152,14 @@ CREATE TABLE [dbo].[Email](
 	[UpdateDate] [date] NOT NULL,
 	[Active] [bit] NOT NULL,
 	[Type_Code] [char](1) NOT NULL,
+	[Contact_Id] [int] NOT NULL,
  CONSTRAINT [PK_Email] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Phone]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Phone]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -172,14 +175,10 @@ CREATE TABLE [dbo].[Phone](
  CONSTRAINT [PK_Phone] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [IX_Phone] UNIQUE NONCLUSTERED 
-(
-	[Contact_Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Type]    Script Date: 11/25/2022 3:05:16 PM ******/
+/****** Object:  Table [dbo].[Type]    Script Date: 12/20/2022 11:12:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,6 +192,11 @@ CREATE TABLE [dbo].[Type](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_Contact] FOREIGN KEY([Contact_Id])
+REFERENCES [dbo].[Contact] ([Id])
+GO
+ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_Contact]
+GO
 ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_Type] FOREIGN KEY([Type_Code])
 REFERENCES [dbo].[Type] ([Code])
 GO
@@ -202,6 +206,11 @@ ALTER TABLE [dbo].[Contact]  WITH CHECK ADD  CONSTRAINT [FK_Contact_Contact_Imag
 REFERENCES [dbo].[Contact_Image] ([Id])
 GO
 ALTER TABLE [dbo].[Contact] CHECK CONSTRAINT [FK_Contact_Contact_Image]
+GO
+ALTER TABLE [dbo].[Email]  WITH CHECK ADD  CONSTRAINT [FK_Email_Contact] FOREIGN KEY([Contact_Id])
+REFERENCES [dbo].[Contact] ([Id])
+GO
+ALTER TABLE [dbo].[Email] CHECK CONSTRAINT [FK_Email_Contact]
 GO
 ALTER TABLE [dbo].[Email]  WITH CHECK ADD  CONSTRAINT [FK_Email_Type] FOREIGN KEY([Type_Code])
 REFERENCES [dbo].[Type] ([Code])
